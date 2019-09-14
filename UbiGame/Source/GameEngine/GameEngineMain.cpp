@@ -42,10 +42,13 @@ GameEngineMain::~GameEngineMain()
 
 void GameEngineMain::OnInitialised()
 {
-	//Engine is initialised, this spot should be used for game object and clocks initialisation
+	//Engine is initialized, this spot should be used for game object and clocks initialization
 	m_gameBoard = new Game::GameBoard();
 	sm_deltaTimeClock.restart();
 	sm_gameClock.restart();
+
+	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos());
+	CameraManager::GetInstance()->GetCameraView().setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 }
 
 
@@ -98,6 +101,9 @@ void GameEngineMain::Update()
 	UpdateWindowEvents();
 	if (m_gameBoard)
 		m_gameBoard->Update();
+
+	// Recenter the camera (Couldn't figure out the follow lol)
+	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos());
 
 	UpdateEntities();
 	RenderEntities();

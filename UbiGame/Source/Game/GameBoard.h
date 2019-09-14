@@ -18,10 +18,11 @@ namespace Game
 
 		void Update();		
 		bool IsGameOver() { return false; }
+		GameEngine::Entity* m_player;
 
 	private:
 		void CreatePlayer();
-		GameEngine::Entity* m_player;
+		void NewBlueBoxForNoReason();
 	};
 }
 
