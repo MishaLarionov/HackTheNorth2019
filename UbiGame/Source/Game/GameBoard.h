@@ -22,7 +22,7 @@ namespace Game
 
 	private:
 		void CreatePlayer();
-		void NewBlueBoxForNoReason();
+		void NewHouse(float hpos);
 	};
 }
 

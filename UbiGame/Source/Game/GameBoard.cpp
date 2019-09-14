@@ -19,8 +19,11 @@ GameBoard::GameBoard()
 	// Have one sketchy visa guy selling a visa for a large sum of money - That'll be the player goal
 
 	// The stuff gets layered in the order it's added here so add the player last
-	NewBlueBoxForNoReason();
+	// Todo add stores to find work
+	NewHouse(8);
 	CreatePlayer();
+
+	// Todo eventually - Scenery (sidewalk, sky, streetlamps, road, etc...)
 }
 
 
@@ -41,7 +44,7 @@ void Game::GameBoard::CreatePlayer()
 	m_player = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 
-	m_player->SetPos(sf::Vector2f(640.f, 450.f));
+	m_player->SetPos(sf::Vector2f(3800 / 2, 450.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -54,14 +57,14 @@ void Game::GameBoard::CreatePlayer()
 	render->SetFillColor(sf::Color::Red);
 }
 
-// Todo remove this whole function (Don't forget .h file)
-void Game::GameBoard::NewBlueBoxForNoReason()
+// Make a new house. hPos is the house slot on the board
+void Game::GameBoard::NewHouse(float hPos)
 {
 	GameEngine::Entity* redBox = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(redBox);
 
 	// This is about house size
-	redBox->SetPos(sf::Vector2f(640.f, 250.f));
+	redBox->SetPos(sf::Vector2f(hPos * 200, 250.f));
 	redBox->SetSize(sf::Vector2f(200.f, 400.f));
 
 	// Add the render component
