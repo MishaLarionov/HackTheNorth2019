@@ -57,6 +57,13 @@ namespace TextureHelper
 {
 	static sf::Vector2f GetTextureTileSize(GameEngine::eTexture::type texture)
 	{
+		switch (texture)
+		{
+			case GameEngine::eTexture::BottomTiles: return sf::Vector2f(200.f, 400.f);
+			case GameEngine::eTexture::Doors: return sf::Vector2f(70.f, 110.f);
+			case GameEngine::eTexture::Windows: return sf::Vector2f(60.f, 70.f);
+			case GameEngine::eTexture::RoofTiles: return sf::Vector2f(200.f, 43.f);
+		}
 		return sf::Vector2f(-1.f, -1.f);
 	}
 }

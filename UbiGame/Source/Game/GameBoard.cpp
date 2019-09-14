@@ -48,6 +48,7 @@ GameBoard::GameBoard()
 	} while (false); // todo fix this while (count(houses, houses + 1, "StoreLeft") <= 2);
 
 	// Now we loop again and draw stuff
+	srand(time(NULL));
 	for (int i = 0; i < 19; i++) {
 		if (houses[i] == "House" || houses[i] == "PlayerHouse") {
 			NewHouse(i);
@@ -97,22 +98,45 @@ void Game::GameBoard::CreatePlayer()
 // Make a new house. hPos is the house slot on the board
 void Game::GameBoard::NewHouse(float hPos)
 {
-	// Ok we're gonna generate a whole new house now u ready?
-	GameEngine::Entity* redBox = new GameEngine::Entity();
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(redBox);
 
+	// Alright y'all, we're gonna generate a whole new house now u ready?
+	GameEngine::Entity* baseTile = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(baseTile);
 	// This is about house size
-	redBox->SetPos(sf::Vector2f(hPos * 200, 50.f));
-	redBox->SetSize(sf::Vector2f(200.f, 400.f));
-
+	baseTile->SetPos(sf::Vector2f(hPos * 200, 50.f));
+	baseTile->SetSize(sf::Vector2f(200.f, 400.f));
 	// Add the render component
-	// todo sprite and animation
-	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
+	GameEngine::SpriteRenderComponent* renderBase = static_cast<GameEngine::SpriteRenderComponent*>(baseTile->AddComponent<GameEngine::SpriteRenderComponent>());
+	renderBase->SetTopLeftRender(true);
+	renderBase->SetFillColor(sf::Color::Transparent);
+	renderBase->SetTexture(GameEngine::eTexture::BottomTiles);
+	renderBase->SetTileIndex(sf::Vector2i(rand() % 3, 0));
 
-	render->SetTopLeftRender(true);
-	render->SetFillColor(sf::Color::Blue);
-	render->SetTopLeftRender(true);
-	render->SetTexture(GameEngine::eTexture::SampleHouse);
+	// This is to make the roof
+	GameEngine::Entity* roofTile = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(roofTile);
+	// Roof size
+	roofTile->SetPos(sf::Vector2f(hPos * 200, 50.f));
+	roofTile->SetSize(sf::Vector2f(200.f, 43.f));
+	// Add the render component
+	GameEngine::SpriteRenderComponent* renderRoof = static_cast<GameEngine::SpriteRenderComponent*>(roofTile->AddComponent<GameEngine::SpriteRenderComponent>());
+	renderRoof->SetTopLeftRender(true);
+	renderRoof->SetFillColor(sf::Color::Transparent);
+	renderRoof->SetTexture(GameEngine::eTexture::RoofTiles);
+	renderRoof->SetTileIndex(sf::Vector2i(rand() % 3, 0));
+
+	// This is the door
+	GameEngine::Entity* door = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(door);
+	// Door size/pos, will render at center
+	door->SetPos(sf::Vector2f((hPos * 200) + 100, 370.f));
+	door->SetSize(sf::Vector2f(70.f, 110.f));
+	// Add the render component
+	GameEngine::SpriteRenderComponent* renderDoor = static_cast<GameEngine::SpriteRenderComponent*>(door->AddComponent<GameEngine::SpriteRenderComponent>());
+	renderDoor->SetTopLeftRender(false);
+	renderDoor->SetFillColor(sf::Color::Transparent);
+	renderDoor->SetTexture(GameEngine::eTexture::Doors);
+	renderDoor->SetTileIndex(sf::Vector2i(rand() % 2, 0));
 }
 
 // Make a new store. hPos is the house slot on the board
