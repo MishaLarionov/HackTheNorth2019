@@ -15,6 +15,11 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 }
 
+void PlayerMovementComponent::GetDialog()
+{
+	
+}
+
 void PlayerMovementComponent::OnAddToWorld()
 {
 	__super::OnAddToWorld();

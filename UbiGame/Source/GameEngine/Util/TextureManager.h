@@ -16,7 +16,9 @@ namespace GameEngine
 			Player_walk_left,
 			Player_walk_right,
 			Building1,
-			Building1Dialog,
+			StoreDialog_1,
+			StoreDialog_2,
+			StoreDialog_3,
 			Character1,
 			Character1Dialog,
 		};
@@ -30,7 +32,7 @@ namespace GameEngine
 			case eTexture::Player_walk_left: return ".png";
 			case eTexture::Player_walk_right: return ".png";
 			case eTexture::Building1: return ".png";
-			case eTexture::Building1Dialog: return ".png";
+			case eTexture::StoreDialog_3: return "Assets/dialog/StoreDialog_3.png";
 			case eTexture::Character1: return ".png";
 			case eTexture::Character1Dialog: return ".png";
 		}
