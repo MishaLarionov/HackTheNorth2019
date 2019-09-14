@@ -16,6 +16,7 @@ namespace GameEngine
 			Doors,
 			Windows,
 			RoofTiles,
+			Store,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}	
@@ -29,6 +30,7 @@ namespace GameEngine
 			case eTexture::Doors: return "Doors.png";
 			case eTexture::Windows: return "Windows.png";
 			case eTexture::RoofTiles: return "RoofTiles.png";
+			case eTexture::Store: return "Store.png";
 		}
 
 		return "UnknownTexType";

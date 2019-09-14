@@ -200,10 +200,11 @@ void Game::GameBoard::NewStore(float hPos)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	render->SetTopLeftRender(true);
-	render->SetFillColor(sf::Color::Green);
+	render->SetFillColor(sf::Color::Transparent);
+	render->SetTexture(GameEngine::eTexture::Store);
 }
 
 //display a dialog box. the id corresponds to the text image to use
