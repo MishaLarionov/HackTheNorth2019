@@ -6,7 +6,7 @@
 
 namespace Game
 {
-	//Used for storing and controling all game related entities, as well as providing an entry point for the "game" side of application
+	//Used for storing and controlling all game related entities, as well as providing an entry point for the "game" side of application
 	class PlayerEntity;
 
 	class GameBoard
@@ -25,12 +25,15 @@ namespace Game
 		void ShowDialog(int id);
 		void HideDialogue();
 
+	  float gameTime;
+
 		int language;
 		int money;
 
 	private:
 		void CreatePlayer();
 		void NewHouse(float hpos);
+		void NewStore(float hPos);
 		void UpdateValues(int caseNum);
 	};
 }

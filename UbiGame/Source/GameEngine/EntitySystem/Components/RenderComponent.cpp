@@ -11,10 +11,10 @@ using namespace GameEngine;
 RenderComponent::RenderComponent()
 	: m_fillColor(sf::Color::Green)
 	, m_zLevel(0)
+	, m_topLeftRender(false)
 {
 
 }
-
 
 RenderComponent::~RenderComponent()
 {
@@ -43,7 +43,9 @@ void RenderComponent::Render(sf::RenderTarget* target)
 		//Debug draw of entity pos
 		sf::RectangleShape shape(GetEntity()->GetSize());
 		sf::Vector2f pos = GetEntity()->GetPos();
-		pos -= shape.getSize() / 2.f;
+		if (!m_topLeftRender) {
+			pos -= shape.getSize() / 2.f;
+		}
 		shape.setFillColor(m_fillColor);
 		shape.setPosition(pos);
 

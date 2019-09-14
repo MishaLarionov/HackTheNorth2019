@@ -16,13 +16,14 @@ namespace GameEngine
 		virtual void Render(sf::RenderTarget* target);
 
 		void SetFillColor(sf::Color fill) { m_fillColor = fill; }
-		
+		void SetTopLeftRender(bool topLeftRender) { m_topLeftRender = topLeftRender; }
 		void SetZLevel(int level) { m_zLevel = level; }
 		int  GetZLevel() const { return m_zLevel; }
 
 	private:
 		sf::Color m_fillColor;
-		int m_zLevel;		
+		int m_zLevel;	
+		bool m_topLeftRender;
 	};
 }
 

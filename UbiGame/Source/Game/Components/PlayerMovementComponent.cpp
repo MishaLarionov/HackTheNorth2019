@@ -27,18 +27,20 @@ void PlayerMovementComponent::Update()
 
 	float delta = GameEngine::GameEngineMain::GetTimeDelta();
 
-	float playerSpeed = 150.f;
+	float playerSpeed = 200.f;
 
 	sf::Vector2f playerVelocity = sf::Vector2f(0.f, 0.f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		playerVelocity.x -= playerSpeed * delta;
+		Game::GameBoard::gameTime += 0.1 * delta;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		playerVelocity.x += playerSpeed * delta;
+		Game::GameBoard::gameTime += 0.1 * delta;
 	}
 
 	// Update entity with pos values
