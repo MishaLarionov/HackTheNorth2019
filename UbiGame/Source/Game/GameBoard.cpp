@@ -1,6 +1,7 @@
 #include "GameBoard.h"
 
 #include "GameEngine\GameEngineMain.h"
+#include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
 
 
@@ -72,4 +73,15 @@ void Game::GameBoard::NewHouse(float hPos)
 	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
 
 	render->SetFillColor(sf::Color::Blue);
+}
+
+void Game::GameBoard::UpdateValues(int caseNum) 
+{
+	switch (caseNum) 
+	{
+	case 1: 
+		language += 10;
+		money -= 50;
+		break;
+	}
 }

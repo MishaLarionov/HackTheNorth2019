@@ -20,9 +20,13 @@ namespace Game
 		bool IsGameOver() { return false; }
 		GameEngine::Entity* m_player;
 
+		int language;
+		int money;
+
 	private:
 		void CreatePlayer();
 		void NewHouse(float hpos);
+		void UpdateValues(int caseNum);
 	};
 }
 
