@@ -16,18 +16,23 @@ namespace GameEngine
 			Player_walk_left,
 			Player_walk_right,
 			Building1,
+			Building1Dialogue,
+			Character1,
+			Character1Dialogue
 		};
 	}	
 
 	inline const char* GetPath(eTexture::type texture)
 	{
 		// TODO: add image and resource file paths
-		switch (texture) 
-		{
-		case eTexture::Player: return ".png";
-		case eTexture::Player_walk_left: return ".png";
-		case eTexture::Player_walk_right: return ".png";
-		case eTexture::Building1: return ".png";
+		switch (texture) {
+			case eTexture::Player: return ".png";
+			case eTexture::Player_walk_left: return ".png";
+			case eTexture::Player_walk_right: return ".png";
+			case eTexture::Building1: return ".png";
+			case eTexture::Building1Dialogue: return ".png";
+			case eTexture::Character1: return ".png";
+			case eTexture::Character1Dialogue: return ".png";
 		}
 
 		return "UnknownTexType";
