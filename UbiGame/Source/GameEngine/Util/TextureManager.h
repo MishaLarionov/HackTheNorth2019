@@ -12,6 +12,7 @@ namespace GameEngine
 		{
 			None = -1,
 			Count,
+			Player,
 			Player_walk_left,
 			Player_walk_right,
 			Building1,
