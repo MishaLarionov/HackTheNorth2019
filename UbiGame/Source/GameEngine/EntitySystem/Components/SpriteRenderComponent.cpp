@@ -8,10 +8,10 @@ SpriteRenderComponent::SpriteRenderComponent()
 	: m_texture(eTexture::None)
 	, m_tileIndex(sf::Vector2i(0, 0))
 	, m_animComponent(nullptr)
+	, m_topLeftRender(false)
 {
 
 }
-
 
 SpriteRenderComponent::~SpriteRenderComponent()
 {
@@ -48,8 +48,10 @@ void SpriteRenderComponent::UpdateSpriteParams()
 	sf::IntRect textureRect((int)textureSize.x * m_tileIndex.x, (int)textureSize.y * m_tileIndex.y, (int)textureSize.x, (int)textureSize.y);
 	m_sprite.setTextureRect(textureRect);
 
-	//Having the origing of the sprite set to the centre helps a lot, especially with rotations
-	m_sprite.setOrigin(sf::Vector2f(textureSize.x / 2.f, textureSize.y / 2.f));
+	//Having the origin of the sprite set to the center helps a lot, especially with rotations
+	if (!m_topLeftRender) {
+		m_sprite.setOrigin(sf::Vector2f(textureSize.x / 2.f, textureSize.y / 2.f));
+	}
 	
 	//If we have specified size, rescale to fit - meaning - we can grab 32x32 px texture and render it on 128x128 sprite if we want:
 	if (GetEntity()->GetSize().x > 0.f && GetEntity()->GetSize().y > 0.f)
