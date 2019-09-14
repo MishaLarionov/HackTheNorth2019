@@ -113,12 +113,12 @@ void Game::GameBoard::CreateNPC()
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
+	//GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
 
 	// Add the movement component
-	m_npc->AddComponent<NPCMovementComponent>();
+	//m_npc->AddComponent<NPCMovementComponent>();
 
-	render->SetFillColor(sf::Color::Yellow);
+	//render->SetFillColor(sf::Color::Yellow);
 
 }
 

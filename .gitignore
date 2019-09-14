@@ -326,6 +326,3 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-*.tlog
-*.idb
-x64/Debug/UbiGame.exe
