@@ -162,5 +162,13 @@ void Game::GameBoard::UpdateValues(int caseNum)
 		language += 10;
 		money -= 50;
 		break;
+	case 2:
+		language = 0;
+		money += 50;
+		break;
+	case 3:
+		language += 10;
+		money -= 50;
+		break;
 	}
 }

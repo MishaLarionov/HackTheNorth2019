@@ -9,6 +9,8 @@ namespace Game
 		PlayerMovementComponent();
 		~PlayerMovementComponent();
 
+		void GetDialog();
+
 		virtual void Update() override;
 		virtual void OnAddToWorld() override;
 	};

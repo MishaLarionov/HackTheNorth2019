@@ -20,12 +20,7 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
 
-		void CreatePlayer();
-		void NewHouse(float hpos);
-		void ShowDialog(int id);
-		void HideDialogue();
-
-	  float gameTime;
+		float gameTime;
 
 		int language;
 		int money;
@@ -34,6 +29,8 @@ namespace Game
 		void CreatePlayer();
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
+		void ShowDialog(int id);
+		void HideDialog();
 		void UpdateValues(int caseNum);
 	};
 }
