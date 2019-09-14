@@ -48,7 +48,7 @@ void PlayerMovementComponent::Update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) 
 	{
-		// Player wants to interact with the nearest building
+		// Player wants to interact with the nearest NPC
 		GetDialog(playerVelocity.x);
 	}
 

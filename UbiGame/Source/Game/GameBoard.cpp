@@ -3,6 +3,7 @@
 #include "GameEngine\GameEngineMain.h"
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
+#include <Game\Components\NPCMovementComponent.h>
 #include <iostream>
 #include <chrono>
 
@@ -58,6 +59,11 @@ GameBoard::GameBoard()
 	// The stuff gets layered in the order it's added here so add the player last
 	CreatePlayer();
 
+	// Generate 4-6 NPCs
+	for (int i = 0; i < (rand() % 2) + 4; i++) {
+		CreateNPC();
+	}
+
 	// Todo eventually - Scenery (sidewalk, sky, streetlamps, road, etc...)
 }
 
@@ -79,6 +85,7 @@ void Game::GameBoard::CreatePlayer()
 	m_player = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 
+	// Set the spawn location of the npc
 	m_player->SetPos(sf::Vector2f(3800 / 2, 450.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
 
@@ -90,6 +97,29 @@ void Game::GameBoard::CreatePlayer()
 	m_player->AddComponent<PlayerMovementComponent>();
 
 	render->SetFillColor(sf::Color::Red);
+}
+
+void Game::GameBoard::CreateNPC()
+{
+	// Initialize a new NPC (same as player code with different component)
+	GameEngine::Entity* m_npc = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
+
+	float ranX = (3800.f / 19) * (rand() % 200);
+
+	// Set the location of the npc
+	m_npc->SetPos(sf::Vector2f(ranX, 450.f));
+	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
+
+	// Add the render component
+	// todo sprite and animation
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
+
+	// Add the movement component
+	m_npc->AddComponent<NPCMovementComponent>();
+
+	render->SetFillColor(sf::Color::Yellow);
+
 }
 
 // Make a new house. hPos is the house slot on the board

@@ -17,8 +17,10 @@ namespace Game
 
 		void Update();
 		bool IsGameOver() { return false; }
+
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
+		std::vector<GameEngine::Entity*> m_npcs;
 
 		float* gameTime;
 
@@ -27,6 +29,7 @@ namespace Game
 
 	private:
 		void CreatePlayer();
+		void CreateNPC();
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
 		void ShowDialog(int id);
