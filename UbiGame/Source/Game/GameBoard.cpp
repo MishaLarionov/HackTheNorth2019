@@ -9,6 +9,7 @@ using namespace Game;
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, dialogueBox(nullptr)
+	, gameTime(0)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200

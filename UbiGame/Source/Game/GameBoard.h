@@ -20,6 +20,8 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* dialogueBox;
 
+		float gameTime;
+
 		void CreatePlayer();
 		void NewHouse(float hpos);
 		void ShowDialogue(int id);
