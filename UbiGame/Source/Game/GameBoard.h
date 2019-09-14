@@ -20,8 +20,6 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
 
-		float* gameTime;
-
 		int* language;
 		int* money;
 

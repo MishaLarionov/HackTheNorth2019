@@ -30,6 +30,8 @@ namespace GameEngine
 		void OnInitialised();
 		bool IsGameOver() const { return m_gameBoard && m_gameBoard->IsGameOver(); }
 
+		static float m_gameTime;
+
 	private:
 		GameEngineMain();
 

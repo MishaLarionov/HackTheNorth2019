@@ -13,6 +13,8 @@ using namespace GameEngine;
 
 float GameEngineMain::WINDOW_WIDTH = 1280;
 float GameEngineMain::WINDOW_HEIGHT = 720;
+float GameEngineMain::m_gameTime = 0.f;
+
 //Nullptr init for singleton class
 GameEngineMain* GameEngineMain::sm_instance = nullptr;
 sf::Clock		GameEngineMain::sm_deltaTimeClock;
@@ -47,17 +49,16 @@ void GameEngineMain::OnInitialised()
 	sm_deltaTimeClock.restart();
 	sm_gameClock.restart();
 
+
 	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos());
 	CameraManager::GetInstance()->GetCameraView().setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 }
-
 
 void GameEngineMain::CreateAndSetUpWindow()
 {
 	m_renderWindow = new sf::RenderWindow(sf::VideoMode((unsigned int)WINDOW_WIDTH, (unsigned int)WINDOW_HEIGHT), "Hack The North");
 	m_renderTarget = m_renderWindow;
 }
-
 
 void GameEngineMain::AddEntity(Entity* entity)
 {
@@ -68,7 +69,6 @@ void GameEngineMain::AddEntity(Entity* entity)
 		m_entitiesToAdd.push_back(entity);		
 	}	
 }
-
 
 void GameEngineMain::RemoveEntity(Entity* entity)
 {
@@ -85,7 +85,6 @@ void GameEngineMain::RemoveEntity(Entity* entity)
 		entity->OnRemoveFromWorld();
 	}	
 }
-
 
 void GameEngineMain::Update()
 {		
