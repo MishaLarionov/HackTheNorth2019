@@ -27,25 +27,22 @@ GameBoard::GameBoard()
 	// Seed the random generator
 	srand(time(NULL));
 
-	do {
-		// Generate on each side of the player house
-		for (int i = 0; i < 19; i++) {
+	// Generate on each side of the player house
+	for (int i = 0; i < 19; i++) {
 
-			if (i == 9) {
-				houses[i] = "PlayerHouse";
-			}
-			else if (rand() % 100 < 20 && i + 1 != 9 && i + 1 < 19) {
-				// 20% chance of spawning a store (also make sure that it doesn't intersect house)
-				houses[i] = "StoreLeft";
-				houses[i + 1] = "StoreRight";
-				i++;
-			}
-			else {
-				houses[i] = "House";
-			}
+		if (i == 9) {
+			houses[i] = "PlayerHouse";
 		}
-		// Make sure we have at least 2 stores
-	} while (false); // todo fix this while (count(houses, houses + 1, "StoreLeft") <= 2);
+		else if (rand() % 100 < 25 && i + 1 != 9 && i + 1 < 19) {
+			// 20% chance of spawning a store (also make sure that it doesn't intersect house)
+			houses[i] = "StoreLeft";
+			houses[i + 1] = "StoreRight";
+			i++;
+		}
+		else {
+			houses[i] = "House";
+		}
+	}
 
 	// Now we loop again and draw stuff
 	srand(time(NULL));
