@@ -19,6 +19,7 @@ namespace GameEngine
 			Building1Dialog,
 			Character1,
 			Character1Dialog,
+			SampleHouse,
 		};
 	}	
 
@@ -33,6 +34,7 @@ namespace GameEngine
 			case eTexture::Building1Dialog: return ".png";
 			case eTexture::Character1: return ".png";
 			case eTexture::Character1Dialog: return ".png";
+			case eTexture::SampleHouse: return "SampleHouse.png";
 		}
 
 		return "UnknownTexType";
