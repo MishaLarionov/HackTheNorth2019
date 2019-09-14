@@ -22,7 +22,9 @@ namespace GameEngine
 
 	private:
 		sf::Color m_fillColor;
-		int m_zLevel;	
+		int m_zLevel;
+
+	protected:
 		bool m_topLeftRender;
 	};
 }

@@ -39,13 +39,11 @@ void PlayerMovementComponent::Update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		playerVelocity.x -= playerSpeed * delta;
-		Game::GameBoard::gameTime += 0.1 * delta;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		playerVelocity.x += playerSpeed * delta;
-		Game::GameBoard::gameTime += 0.1 * delta;
 	}
 
 	// Update entity with pos values

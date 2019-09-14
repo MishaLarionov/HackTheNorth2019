@@ -10,18 +10,9 @@ namespace GameEngine
 	{
 		enum type
 		{
-			None = -1,
-			Count,
-			Player,
-			Player_walk_left,
-			Player_walk_right,
-			Building1,
-			StoreDialog_1,
-			StoreDialog_2,
-			StoreDialog_3,
-			Character1,
-			Character1Dialog,
+			None = -1, // THIS ONE HAS TO BE FIRST
 			SampleHouse,
+			Count, // THIS ONE HAS TO BE LAST
 		};
 	}	
 
@@ -29,13 +20,6 @@ namespace GameEngine
 	{
 		// TODO: add image and resource file paths
 		switch (texture) {
-			case eTexture::Player: return ".png";
-			case eTexture::Player_walk_left: return ".png";
-			case eTexture::Player_walk_right: return ".png";
-			case eTexture::Building1: return ".png";
-			case eTexture::StoreDialog_3: return "Assets/dialog/StoreDialog_3.png";
-			case eTexture::Character1: return ".png";
-			case eTexture::Character1Dialog: return ".png";
 			case eTexture::SampleHouse: return "SampleHouse.png";
 		}
 

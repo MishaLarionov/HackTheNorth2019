@@ -106,10 +106,12 @@ void Game::GameBoard::NewHouse(float hPos)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	render->SetTopLeftRender(true);
 	render->SetFillColor(sf::Color::Blue);
+	render->SetTopLeftRender(true);
+	render->SetTexture(GameEngine::eTexture::SampleHouse);
 }
 
 // Make a new store. hPos is the house slot on the board
@@ -139,14 +141,14 @@ void Game::GameBoard::ShowDialog(int id) {
 	m_dialogBox->SetPos(sf::Vector2f(540.f, 580.f));
 	m_dialogBox->SetSize(sf::Vector2f(200.f, 100.f));
 
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_dialogBox->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 	render->SetZLevel(1);
 	render->SetFillColor(sf::Color::Transparent);
 
-	switch (id) {
-	case -1:
-		render->SetTexture(GameEngine::eTexture::Building1Dialog);
-	}
+	// switch (id) {
+	// case -1:
+	//	render->SetTexture(GameEngine::eTexture::Building1);
+	// }
 }
 
 //close the current dialog box

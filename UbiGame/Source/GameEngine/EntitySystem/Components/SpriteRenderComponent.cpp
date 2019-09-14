@@ -4,14 +4,14 @@
 
 using namespace GameEngine;
 
-SpriteRenderComponent::SpriteRenderComponent()	
+SpriteRenderComponent::SpriteRenderComponent()
 	: m_texture(eTexture::None)
 	, m_tileIndex(sf::Vector2i(0, 0))
 	, m_animComponent(nullptr)
-	, m_topLeftRender(false)
 {
 
 }
+
 
 SpriteRenderComponent::~SpriteRenderComponent()
 {
@@ -34,8 +34,8 @@ void SpriteRenderComponent::UpdateSpriteParams()
 
 	//We set the sprite texture to the one provided in the parameters
 	sf::Texture* texture = TextureManager::GetInstance()->GetTexture(m_texture);
-	m_sprite.setTexture(*texture);	
-	
+	m_sprite.setTexture(*texture);
+
 	//This grabs the size of the tiled texture and IN CASE the texture is set as tiled, gets the size of the tile
 	sf::Vector2f textureSize = sf::Vector2f(texture->getSize());
 	if (TextureHelper::GetTextureTileSize(m_texture).x > 0.f)
@@ -52,7 +52,10 @@ void SpriteRenderComponent::UpdateSpriteParams()
 	if (!m_topLeftRender) {
 		m_sprite.setOrigin(sf::Vector2f(textureSize.x / 2.f, textureSize.y / 2.f));
 	}
-	
+	else {
+		m_sprite.setOrigin(sf::Vector2f(0, 0));
+	}
+
 	//If we have specified size, rescale to fit - meaning - we can grab 32x32 px texture and render it on 128x128 sprite if we want:
 	if (GetEntity()->GetSize().x > 0.f && GetEntity()->GetSize().y > 0.f)
 	{
@@ -88,7 +91,7 @@ void SpriteRenderComponent::Update()
 	if (m_animComponent && m_animComponent->IsAnimPlaying())
 	{
 		SetTileIndex(m_animComponent->GetWantedTileIndex());
-	}		
+	}
 
 	UpdateTileRect();
 }
@@ -96,7 +99,7 @@ void SpriteRenderComponent::Update()
 
 void SpriteRenderComponent::SetTexture(eTexture::type texture)
 {
-	m_texture = texture;	
+	m_texture = texture;
 }
 
 
@@ -108,7 +111,7 @@ void SpriteRenderComponent::Render(sf::RenderTarget* target)
 	{
 		return;
 	}
-	
+
 	//After the values are set, render itself is pretty simple
 	m_sprite.setPosition(GetEntity()->GetPos());
 	m_sprite.setRotation(GetEntity()->GetRot());
