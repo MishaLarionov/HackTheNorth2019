@@ -9,10 +9,11 @@ using namespace Game;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
+	, dialogueBox(nullptr)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
-	float board_length = 3800; 
+	float board_length = 3800;
 	// 200 pixel wide houses gives us up to 19 buildings, potentially less with grocery stores here and there
 	// Put a player house in the middle
 	// Spawn a few places for temp labor that are randomly open or "sorry, no work today" and one school
@@ -35,8 +36,8 @@ GameBoard::~GameBoard()
 
 
 void GameBoard::Update()
-{	
-	
+{
+
 }
 
 void Game::GameBoard::CreatePlayer()
@@ -75,11 +76,35 @@ void Game::GameBoard::NewHouse(float hPos)
 	render->SetFillColor(sf::Color::Blue);
 }
 
-void Game::GameBoard::UpdateValues(int caseNum) 
+//display a dialogue box. the id corresponds to the text image to use
+void Game::GameBoard::ShowDialogue(int id) {
+	dialogueBox = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(dialogueBox);
+
+	//set the text box position and size
+	dialogueBox->SetPos(sf::Vector2f(540.f, 580.f));
+	dialogueBox->SetSize(sf::Vector2f(200.f, 100.f));
+
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(dialogueBox->AddComponent<GameEngine::RenderComponent>());
+	render->SetZLevel(1);
+	render->SetFillColor(sf::Color::Transparent);
+
+	switch (id) {
+	case -1:
+		render->SetTexture(GameEngine::eTexture::Building1Dialogue);
+	}
+}
+
+//close the current dialogue box
+void Game::GameBoard::HideDialogue() {
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(dialogueBox);
+}
+
+void Game::GameBoard::UpdateValues(int caseNum)
 {
-	switch (caseNum) 
+	switch (caseNum)
 	{
-	case 1: 
+	case 1:
 		language += 10;
 		money -= 50;
 		break;
