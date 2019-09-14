@@ -18,11 +18,11 @@ namespace Game
 		void Update();
 		bool IsGameOver() { return false; }
 		GameEngine::Entity* m_player;
-		GameEngine::Entity* dialogueBox;
+		GameEngine::Entity* m_dialogBox;
 
 		void CreatePlayer();
 		void NewHouse(float hpos);
-		void ShowDialogue(int id);
+		void ShowDialog(int id);
 		void HideDialogue();
 
 		int language;

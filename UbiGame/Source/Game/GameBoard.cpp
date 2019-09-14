@@ -9,7 +9,7 @@ using namespace Game;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
-	, dialogueBox(nullptr)
+	, m_dialogBox(nullptr)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
@@ -76,28 +76,28 @@ void Game::GameBoard::NewHouse(float hPos)
 	render->SetFillColor(sf::Color::Blue);
 }
 
-//display a dialogue box. the id corresponds to the text image to use
-void Game::GameBoard::ShowDialogue(int id) {
-	dialogueBox = new GameEngine::Entity();
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(dialogueBox);
+//display a dialog box. the id corresponds to the text image to use
+void Game::GameBoard::ShowDialog(int id) {
+	m_dialogBox = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
 	//set the text box position and size
-	dialogueBox->SetPos(sf::Vector2f(540.f, 580.f));
-	dialogueBox->SetSize(sf::Vector2f(200.f, 100.f));
+	m_dialogBox->SetPos(sf::Vector2f(540.f, 580.f));
+	m_dialogBox->SetSize(sf::Vector2f(200.f, 100.f));
 
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(dialogueBox->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_dialogBox->AddComponent<GameEngine::RenderComponent>());
 	render->SetZLevel(1);
 	render->SetFillColor(sf::Color::Transparent);
 
 	switch (id) {
 	case -1:
-		render->SetTexture(GameEngine::eTexture::Building1Dialogue);
+		render->SetTexture(GameEngine::eTexture::Building1Dialog);
 	}
 }
 
-//close the current dialogue box
-void Game::GameBoard::HideDialogue() {
-	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(dialogueBox);
+//close the current dialog box
+void Game::GameBoard::HideDialog() {
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
 }
 
 void Game::GameBoard::UpdateValues(int caseNum)
