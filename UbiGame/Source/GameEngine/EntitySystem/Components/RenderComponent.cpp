@@ -43,6 +43,7 @@ void RenderComponent::Render(sf::RenderTarget* target)
 		//Debug draw of entity pos
 		sf::RectangleShape shape(GetEntity()->GetSize());
 		sf::Vector2f pos = GetEntity()->GetPos();
+
 		if (!m_topLeftRender) {
 			pos -= shape.getSize() / 2.f;
 		}

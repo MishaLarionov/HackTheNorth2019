@@ -167,6 +167,28 @@ void Game::GameBoard::NewHouse(float hPos)
 	renderDoor->SetFillColor(sf::Color::Transparent);
 	renderDoor->SetTexture(GameEngine::eTexture::Doors);
 	renderDoor->SetTileIndex(sf::Vector2i(rand() % 2, 0));
+
+	// Draw the four windows
+	int windowStyle = rand() % 2;
+	for (int i = 1; i <= 4; i++) {
+		GameEngine::Entity* windowTile = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(windowTile);
+		// Window size/pos
+		if (i <= 2) {
+			windowTile->SetPos(sf::Vector2f((hPos * 200) + 67 * (i % 2 + 1), 150.f));
+		}
+		else {
+			windowTile->SetPos(sf::Vector2f((hPos * 200) + 67 * (i % 2 + 1), 225.f));
+		}
+		windowTile->SetSize(sf::Vector2f(60, 70));
+
+		// Render component
+		GameEngine::SpriteRenderComponent* renderWindow = static_cast<GameEngine::SpriteRenderComponent*>(windowTile->AddComponent<GameEngine::SpriteRenderComponent>());
+		renderWindow->SetTopLeftRender(false);
+		renderWindow->SetFillColor(sf::Color::Transparent);
+		renderWindow->SetTexture(GameEngine::eTexture::Windows);
+		renderWindow->SetTileIndex(sf::Vector2i(windowStyle, 0));
+	}
 }
 
 // Make a new store. hPos is the house slot on the board
