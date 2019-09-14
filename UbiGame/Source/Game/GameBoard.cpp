@@ -1,7 +1,6 @@
 #include "GameBoard.h"
 
 #include "GameEngine\GameEngineMain.h"
-#include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
 
 
@@ -50,7 +49,7 @@ void Game::GameBoard::CreatePlayer()
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_player->AddComponent<GameEngine::SpriteRenderComponent>());
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
 
 	// Add the movement component
 	m_player->AddComponent<PlayerMovementComponent>();
@@ -70,7 +69,7 @@ void Game::GameBoard::NewHouse(float hPos)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
 
 	render->SetFillColor(sf::Color::Blue);
 }
