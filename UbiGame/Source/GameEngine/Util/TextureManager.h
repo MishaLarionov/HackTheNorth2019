@@ -12,6 +12,10 @@ namespace GameEngine
 		{
 			None = -1, // THIS ONE HAS TO BE FIRST
 			SampleHouse,
+			BottomTiles,
+			Doors,
+			Windows,
+			RoofTiles,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}	
@@ -21,6 +25,10 @@ namespace GameEngine
 		// TODO: add image and resource file paths
 		switch (texture) {
 			case eTexture::SampleHouse: return "SampleHouse.png";
+			case eTexture::BottomTiles: return "BottomTiles.png";
+			case eTexture::Doors: return "Doors.png";
+			case eTexture::Windows: return "Windows.png";
+			case eTexture::RoofTiles: return "RoofTiles.png";
 		}
 
 		return "UnknownTexType";

@@ -97,6 +97,7 @@ void Game::GameBoard::CreatePlayer()
 // Make a new house. hPos is the house slot on the board
 void Game::GameBoard::NewHouse(float hPos)
 {
+	// Ok we're gonna generate a whole new house now u ready?
 	GameEngine::Entity* redBox = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(redBox);
 
