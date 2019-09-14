@@ -12,6 +12,7 @@ using namespace Game;
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, dialogueBox(nullptr)
+	, gameTime(0)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
@@ -130,7 +131,7 @@ void Game::GameBoard::NewStore(float hPos)
 }
 
 //display a dialog box. the id corresponds to the text image to use
-void Game::GameBoard::ShowDialogue(int id) {
+void Game::GameBoard::ShowDialog(int id) {
 	dialogueBox = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(dialogueBox);
 
@@ -149,7 +150,7 @@ void Game::GameBoard::ShowDialogue(int id) {
 }
 
 //close the current dialog box
-void Game::GameBoard::HideDialogue() {
+void Game::GameBoard::HideDialog() {
 	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(dialogueBox);
 }
 

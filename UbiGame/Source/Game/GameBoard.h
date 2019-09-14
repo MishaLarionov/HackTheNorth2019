@@ -20,8 +20,9 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* dialogueBox;
 
-		void ShowDialogue(int id);
-		void HideDialogue();
+		float gameTime;
+		void ShowDialog(int id);
+		void HideDialog();
 
 		int language;
 		int money;
