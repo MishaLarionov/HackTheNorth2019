@@ -1,6 +1,7 @@
 #include "GameBoard.h"
 
 #include "GameEngine\GameEngineMain.h"
+#include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
 
 
@@ -13,7 +14,7 @@ GameBoard::GameBoard()
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
-	float board_length = 3800; 
+	float board_length = 3800;
 	// 200 pixel wide houses gives us up to 19 buildings, potentially less with grocery stores here and there
 	// Put a player house in the middle
 	// Spawn a few places for temp labor that are randomly open or "sorry, no work today" and one school
@@ -36,8 +37,8 @@ GameBoard::~GameBoard()
 
 
 void GameBoard::Update()
-{	
-	
+{
+
 }
 
 void Game::GameBoard::CreatePlayer()
@@ -98,4 +99,15 @@ void Game::GameBoard::ShowDialogue(int id) {
 //close the current dialogue box
 void Game::GameBoard::HideDialogue() {
 	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(dialogueBox);
+}
+
+void Game::GameBoard::UpdateValues(int caseNum)
+{
+	switch (caseNum)
+	{
+	case 1:
+		language += 10;
+		money -= 50;
+		break;
+	}
 }
