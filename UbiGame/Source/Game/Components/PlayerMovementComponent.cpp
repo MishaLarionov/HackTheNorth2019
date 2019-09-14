@@ -16,7 +16,7 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 }
 
-void PlayerMovementComponent::GetDialog(int x)
+void PlayerMovementComponent::GetDialog(int index)
 {
 	
 }

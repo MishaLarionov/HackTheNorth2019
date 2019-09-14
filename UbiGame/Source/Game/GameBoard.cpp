@@ -59,8 +59,8 @@ GameBoard::GameBoard()
 	// The stuff gets layered in the order it's added here so add the player last
 	CreatePlayer();
 
-	// Generate 4-6 NPCs
-	for (int i = 0; i < (rand() % 2) + 4; i++) {
+	// Generate 4 NPCs
+	for (int i = 0; i < 4; i++) {
 		CreateNPC();
 	}
 
@@ -108,18 +108,17 @@ void Game::GameBoard::CreateNPC()
 	float ranX = (3800.f / 19) * (rand() % 200);
 
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f(ranX, 450.f));
+	m_npc->SetPos(sf::Vector2f(ranX, (rand()%10 + 450.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
 	// todo sprite and animation
-	//GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_npc->AddComponent<GameEngine::RenderComponent>());
 
-	// Add the movement component
-	//m_npc->AddComponent<NPCMovementComponent>();
+	render->SetFillColor(sf::Color::Yellow);
 
-	//render->SetFillColor(sf::Color::Yellow);
-
+	m_npcs.push_back(m_npc);
+	m_npcsx.push_back(ranX);
 }
 
 // Make a new house. hPos is the house slot on the board
@@ -200,11 +199,10 @@ void Game::GameBoard::NewStore(float hPos)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
 
 	render->SetTopLeftRender(true);
-	render->SetFillColor(sf::Color::Transparent);
-	render->SetTexture(GameEngine::eTexture::Store);
+	render->SetFillColor(sf::Color::Green);
 }
 
 //display a dialog box. the id corresponds to the text image to use
