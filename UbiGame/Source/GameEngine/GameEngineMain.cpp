@@ -103,7 +103,7 @@ void GameEngineMain::Update()
 		m_gameBoard->Update();
 
 	// Recenter the camera (Couldn't figure out the follow lol)
-	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos());
+	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos() +  sf::Vector2f(0, -100));
 
 	UpdateEntities();
 	RenderEntities();
