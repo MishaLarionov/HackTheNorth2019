@@ -15,7 +15,7 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 }
 
-void PlayerMovementComponent::GetDialog()
+void PlayerMovementComponent::GetDialog(int x)
 {
 	
 }
@@ -44,6 +44,12 @@ void PlayerMovementComponent::Update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		playerVelocity.x += playerSpeed * delta;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) 
+	{
+		// Player wants to interact with the nearest building
+		GetDialog(playerVelocity.x);
 	}
 
 	// Update entity with pos values

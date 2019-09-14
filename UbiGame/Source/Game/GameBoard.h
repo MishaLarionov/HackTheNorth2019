@@ -20,10 +20,10 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
 
-		float gameTime;
+		float* gameTime;
 
-		int language;
-		int money;
+		int* language;
+		int* money;
 
 	private:
 		void CreatePlayer();
