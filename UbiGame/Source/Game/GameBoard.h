@@ -15,14 +15,18 @@ namespace Game
 		GameBoard();
 		virtual ~GameBoard();
 
-
 		void Update();		
 		bool IsGameOver() { return false; }
 		GameEngine::Entity* m_player;
+		GameEngine::Entity* dialogueBox;
 
-	private:
 		void CreatePlayer();
 		void NewHouse(float hpos);
+		void ShowDialogue(int id);
+		void HideDialogue();
+
+	private:
+
 	};
 }
 

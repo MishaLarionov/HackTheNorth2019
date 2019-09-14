@@ -8,6 +8,7 @@ using namespace Game;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
+	, dialogueBox(nullptr)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
@@ -72,4 +73,28 @@ void Game::GameBoard::NewHouse(float hPos)
 	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
 
 	render->SetFillColor(sf::Color::Blue);
+}
+
+//display a dialogue box. the id corresponds to the text image to use
+void Game::GameBoard::ShowDialogue(int id) {
+	dialogueBox = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(dialogueBox);
+
+	//set the text box position and size
+	dialogueBox->SetPos(sf::Vector2f(540.f, 580.f));
+	dialogueBox->SetSize(sf::Vector2f(200.f, 100.f));
+
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(dialogueBox->AddComponent<GameEngine::RenderComponent>());
+	render->SetZLevel(1);
+	render->SetFillColor(sf::Color::Transparent);
+
+	switch (id) {
+	case -1:
+		render->SetTexture(GameEngine::eTexture::Building1Dialogue);
+	}
+}
+
+//close the current dialogue box
+void Game::GameBoard::HideDialogue() {
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(dialogueBox);
 }
