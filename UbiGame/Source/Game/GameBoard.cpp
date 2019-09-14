@@ -3,6 +3,7 @@
 #include "GameEngine\GameEngineMain.h"
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
+#include <Game\Components\NPCMovementComponent.h>
 #include <iostream>
 #include <chrono>
 
@@ -27,25 +28,22 @@ GameBoard::GameBoard()
 	// Seed the random generator
 	srand(time(NULL));
 
-	do {
-		// Generate on each side of the player house
-		for (int i = 0; i < 19; i++) {
+	// Generate on each side of the player house
+	for (int i = 0; i < 19; i++) {
 
-			if (i == 9) {
-				houses[i] = "PlayerHouse";
-			}
-			else if (rand() % 100 < 20 && i + 1 != 9 && i + 1 < 19) {
-				// 20% chance of spawning a store (also make sure that it doesn't intersect house)
-				houses[i] = "StoreLeft";
-				houses[i + 1] = "StoreRight";
-				i++;
-			}
-			else {
-				houses[i] = "House";
-			}
+		if (i == 9) {
+			houses[i] = "PlayerHouse";
 		}
-		// Make sure we have at least 2 stores
-	} while (false); // todo fix this while (count(houses, houses + 1, "StoreLeft") <= 2);
+		else if (rand() % 100 < 25 && i + 1 != 9 && i + 1 < 19) {
+			// 20% chance of spawning a store (also make sure that it doesn't intersect house)
+			houses[i] = "StoreLeft";
+			houses[i + 1] = "StoreRight";
+			i++;
+		}
+		else {
+			houses[i] = "House";
+		}
+	}
 
 	// Now we loop again and draw stuff
 	srand(time(NULL));
@@ -60,6 +58,11 @@ GameBoard::GameBoard()
 
 	// The stuff gets layered in the order it's added here so add the player last
 	CreatePlayer();
+
+	// Generate 4-6 NPCs
+	for (int i = 0; i < (rand() % 2) + 4; i++) {
+		CreateNPC();
+	}
 
 	// Todo eventually - Scenery (sidewalk, sky, streetlamps, road, etc...)
 }
@@ -82,6 +85,7 @@ void Game::GameBoard::CreatePlayer()
 	m_player = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 
+	// Set the spawn location of the npc
 	m_player->SetPos(sf::Vector2f(3800 / 2, 450.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
 
@@ -93,6 +97,29 @@ void Game::GameBoard::CreatePlayer()
 	m_player->AddComponent<PlayerMovementComponent>();
 
 	render->SetFillColor(sf::Color::Red);
+}
+
+void Game::GameBoard::CreateNPC()
+{
+	// Initialize a new NPC (same as player code with different component)
+	GameEngine::Entity* m_npc = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
+
+	float ranX = (3800.f / 19) * (rand() % 200);
+
+	// Set the location of the npc
+	m_npc->SetPos(sf::Vector2f(ranX, 450.f));
+	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
+
+	// Add the render component
+	// todo sprite and animation
+	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
+
+	// Add the movement component
+	m_npc->AddComponent<NPCMovementComponent>();
+
+	render->SetFillColor(sf::Color::Yellow);
+
 }
 
 // Make a new house. hPos is the house slot on the board
@@ -137,6 +164,28 @@ void Game::GameBoard::NewHouse(float hPos)
 	renderDoor->SetFillColor(sf::Color::Transparent);
 	renderDoor->SetTexture(GameEngine::eTexture::Doors);
 	renderDoor->SetTileIndex(sf::Vector2i(rand() % 2, 0));
+
+	// Draw the four windows
+	int windowStyle = rand() % 2;
+	for (int i = 1; i <= 4; i++) {
+		GameEngine::Entity* windowTile = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(windowTile);
+		// Window size/pos
+		if (i <= 2) {
+			windowTile->SetPos(sf::Vector2f((hPos * 200) + 67 * (i % 2 + 1), 150.f));
+		}
+		else {
+			windowTile->SetPos(sf::Vector2f((hPos * 200) + 67 * (i % 2 + 1), 225.f));
+		}
+		windowTile->SetSize(sf::Vector2f(60, 70));
+
+		// Render component
+		GameEngine::SpriteRenderComponent* renderWindow = static_cast<GameEngine::SpriteRenderComponent*>(windowTile->AddComponent<GameEngine::SpriteRenderComponent>());
+		renderWindow->SetTopLeftRender(false);
+		renderWindow->SetFillColor(sf::Color::Transparent);
+		renderWindow->SetTexture(GameEngine::eTexture::Windows);
+		renderWindow->SetTileIndex(sf::Vector2i(windowStyle, 0));
+	}
 }
 
 // Make a new store. hPos is the house slot on the board
