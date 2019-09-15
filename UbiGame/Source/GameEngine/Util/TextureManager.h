@@ -19,6 +19,8 @@ namespace GameEngine
 			Store,
 			Background,
 			Interact_Hint,
+			Player_Left,
+			Player_Right,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}
@@ -35,6 +37,8 @@ namespace GameEngine
 			case eTexture::Store: return "Store.png";
 			case eTexture::Background: return "background4000.png";
 			case eTexture::Interact_Hint: return "Interact_Hint.png";
+			case eTexture::Player_Left: return "WalkLeft.png";
+			case eTexture::Player_Right: return "WalkRight.png";
 		}
 
 		return "UnknownTexType";
@@ -69,6 +73,8 @@ namespace TextureHelper
 			case GameEngine::eTexture::Doors: return sf::Vector2f(70.f, 110.f);
 			case GameEngine::eTexture::Windows: return sf::Vector2f(60.f, 70.f);
 			case GameEngine::eTexture::RoofTiles: return sf::Vector2f(200.f, 43.f);
+			case GameEngine::eTexture::Player_Left: return sf::Vector2f(50.f, 100.f);
+			case GameEngine::eTexture::Player_Right: return sf::Vector2f(50.f, 100.f);
 		}
 		return sf::Vector2f(-1.f, -1.f);
 	}
