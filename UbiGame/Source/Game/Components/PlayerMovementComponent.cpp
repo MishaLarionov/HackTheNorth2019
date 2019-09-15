@@ -39,6 +39,7 @@ void PlayerMovementComponent::Update()
 	float delta = GameEngine::GameEngineMain::GetTimeDelta();
 
 	float playerSpeed = 200.f;
+	float timeScale = 0.08f;
 
 	sf::Vector2f playerVelocity = sf::Vector2f(0.f, 0.f);
 	//float* gameT = Game::GameBoard::gameTime;
@@ -47,13 +48,13 @@ void PlayerMovementComponent::Update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		playerVelocity.x -= playerSpeed * delta;
-		GameEngine::GameEngineMain::m_gameTime += 0.1 * delta;
+		GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		playerVelocity.x += playerSpeed * delta;
-		GameEngine::GameEngineMain::m_gameTime += 0.1 * delta;
+		GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) 

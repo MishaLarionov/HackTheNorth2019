@@ -28,6 +28,9 @@ GameBoard::GameBoard()
 	// Seed the random generator
 	srand(time(NULL));
 
+	//draw the background
+	DrawBackground();
+
 	// Generate on each side of the player house
 	for (int i = 0; i < 19; i++) {
 
@@ -229,6 +232,21 @@ void Game::GameBoard::ShowDialog(int id) {
 //close the current dialog box
 void Game::GameBoard::HideDialog() {
 	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
+}
+
+void Game::GameBoard::DrawBackground() {
+	GameEngine::Entity* bg = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(bg);
+
+	bg->SetPos(sf::Vector2f(0,-42));
+	bg->SetSize(sf::Vector2f(4000,752));
+
+	GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg->AddComponent<GameEngine::SpriteRenderComponent>());
+
+	renderBG->SetTopLeftRender(true);
+	renderBG->SetFillColor(sf::Color::Transparent);
+	//renderEnt->SetZLevel(-1);
+	renderBG->SetTexture(GameEngine::eTexture::Background);
 }
 
 void Game::GameBoard::UpdateValues(int caseNum)

@@ -17,10 +17,11 @@ namespace GameEngine
 			Windows,
 			RoofTiles,
 			Store,
+			Background,
 			Interact_Hint,
 			Count, // THIS ONE HAS TO BE LAST
 		};
-	}	
+	}
 
 	inline const char* GetPath(eTexture::type texture)
 	{
@@ -32,6 +33,7 @@ namespace GameEngine
 			case eTexture::Windows: return "Windows.png";
 			case eTexture::RoofTiles: return "RoofTiles.png";
 			case eTexture::Store: return "Store.png";
+			case eTexture::Background: return "background4000.png";
 			case eTexture::Interact_Hint: return "Interact_Hint.png";
 		}
 
@@ -71,4 +73,3 @@ namespace TextureHelper
 		return sf::Vector2f(-1.f, -1.f);
 	}
 }
-
