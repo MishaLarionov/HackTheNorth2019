@@ -70,6 +70,34 @@ void PlayerMovementComponent::GetDialog(int x)
 
 }
 
+void PlayerMovementComponent::GetDialog2(int x) {
+	// This function is used to keep track/select which npc to interact with
+	std::vector<int> npcsx = GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->GetNPCsX();
+
+	int min = INT_MAX;
+
+	for (auto nx : npcsx) {
+		int abx = std::abs(x - nx);
+		if (abx <= 80 && abx < min) {
+			min = nx;
+		}
+		//std::cout << "PLAYER: " << x << std::endl;
+		//std::cout << "POSITION: " << nx << std::endl;
+		//std::cout << "DISTANCE: " << abx << std::endl;
+	}
+
+	if (min == INT_MAX) {
+		//
+		dialogDisplay = false;
+		std::cout << "TOO FAR! COME CLOSER!" << std::endl;
+	}
+	else {
+		std::cout << "NPC INTERACTED!" << std::endl;
+		// NPC Found
+		GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->ShowDialog(11);
+	}
+}
+
 void PlayerMovementComponent::OnAddToWorld()
 {
 	__super::OnAddToWorld();
@@ -146,6 +174,10 @@ void PlayerMovementComponent::Update()
 			dialogDisplay = true;
 			// Player wants to interact with the nearest NPC
 			GetDialog(GetEntity()->GetPos().x);
+		}
+		else if (!dialogDisplay && sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+			dialogDisplay = true;
+			GetDialog2(GetEntity()->GetPos().x);
 		}
 
 	}

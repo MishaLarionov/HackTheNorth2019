@@ -11,6 +11,7 @@ namespace Game
 		~PlayerMovementComponent();
 
 		void GetDialog(int x);
+		void GetDialog2(int x);
 
 		// -1 is left, 1 is right, 0 is still
 		int dir;

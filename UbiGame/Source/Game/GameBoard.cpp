@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
-#include <exception>
+#include <exception> 
 
 using namespace Game;
 
@@ -265,10 +265,10 @@ void Game::GameBoard::ShowDialog(int id) {
 		
 		render->SetFillColor(sf::Color::Transparent);
 		render->SetZLevel(4);
-		render->SetTexture(GameEngine::eTexture::Shop_Work);
 
 		switch (id) {
 		case 10:
+			render->SetTexture(GameEngine::eTexture::Shop_Work);
 			if (language <= 9) {
 				render->SetTileIndex(sf::Vector2i(0, 0));
 			}
@@ -281,6 +281,16 @@ void Game::GameBoard::ShowDialog(int id) {
 			break;
 		case 11:
 			render->SetTexture(GameEngine::eTexture::Shop_Closed);
+			if (language <= 9) {
+				render->SetTileIndex(sf::Vector2i(0, 0));
+			}
+			else if (language >= 10 && language <= 19) {
+				render->SetTileIndex(sf::Vector2i(1, 0));
+			}
+			else {
+				render->SetTileIndex(sf::Vector2i(2, 0));
+			}
+			break;
 			break;
 		case 12:
 			render->SetTexture(GameEngine::eTexture::Shop_Work);
