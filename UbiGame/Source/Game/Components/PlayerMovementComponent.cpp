@@ -134,10 +134,6 @@ void PlayerMovementComponent::Update()
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::N) && dialogDisplay) {
 			dialogDisplay = false;
 			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
-			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
-			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
-			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
-			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
 			GetDialog(102);
 		}
 	}

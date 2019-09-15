@@ -11,6 +11,7 @@ namespace GameEngine
 		enum type
 		{
 			None = -1, // THIS ONE HAS TO BE FIRST
+			Blank,
 			SampleHouse,
 			BottomTiles,
 			Doors,
@@ -37,6 +38,7 @@ namespace GameEngine
 	{
 		// TODO: add image and resource file paths
 		switch (texture) {
+			case eTexture::Blank: return "Blank.png";
 			case eTexture::SampleHouse: return "SampleHouse.png";
 			case eTexture::BottomTiles: return "BottomTiles.png";
 			case eTexture::Doors: return "Doors.png";

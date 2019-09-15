@@ -23,6 +23,7 @@ namespace Game
 
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
+		GameEngine::Entity* getDialog() { return m_dialogBox; }
 		GameEngine::Entity getPlayer () { m_player; }
 
 		std::vector<GameEngine::Entity*> m_npcs;
