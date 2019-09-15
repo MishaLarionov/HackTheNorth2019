@@ -90,8 +90,7 @@ void PlayerMovementComponent::Update()
 	float timeScale = 0.08f;
 
 	sf::Vector2f playerVelocity = sf::Vector2f(0.f, 0.f);
-	//float* gameT = Game::GameBoard::gameTime;
-	//std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
+	std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
 
 	if (!dialogDisplay) {
 

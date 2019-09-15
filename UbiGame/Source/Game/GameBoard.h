@@ -38,13 +38,14 @@ namespace Game
 		int m_timeOfDay;
 
 	private:
-		void DrawGame(int time);
+		void DrawGame(int time, bool newGame);
 		void DrawBackground(int time);
 		void CreatePlayer();
 		void CreateNPC(int x);
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
 		void UpdateValues(int caseNum);
+		void NextDay();
 		//void DrawTime(int gameTime);
 
 		std::vector<int> m_npcsx;

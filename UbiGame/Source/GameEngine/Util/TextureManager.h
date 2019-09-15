@@ -28,6 +28,7 @@ namespace GameEngine
 			Player_Right,
 			Npc_Left,
 			Npc_Right,
+			Shop_Work,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}
@@ -53,6 +54,7 @@ namespace GameEngine
 			case eTexture::Store_3: return "store_3.png";
 			case eTexture::Npc_Left: return "NpcLeft.png";
 			case eTexture::Npc_Right: return "NpcRight.png";
+			case eTexture::Shop_Work: return "ShopDialog.png";
 		}
 
 		return "UnknownTexType";
@@ -91,6 +93,7 @@ namespace TextureHelper
 			case GameEngine::eTexture::Player_Right: return sf::Vector2f(50.f, 100.f);
 			case GameEngine::eTexture::Npc_Left: return sf::Vector2f(50.f, 100.f);
 			case GameEngine::eTexture::Npc_Right: return sf::Vector2f(50.f, 100.f);
+			case GameEngine::eTexture::Shop_Work: return sf::Vector2f(600.f, 300.f);
 		}
 		return sf::Vector2f(-1.f, -1.f);
 	}
