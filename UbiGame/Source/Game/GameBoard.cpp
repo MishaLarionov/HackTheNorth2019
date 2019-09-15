@@ -46,8 +46,8 @@ GameBoard::~GameBoard()
 
 void GameBoard::Update()
 {
-	if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
-	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
+	//if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
+	//else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
 }
 
 //draw the game in this order - useful for full redraws
@@ -89,7 +89,7 @@ void Game::GameBoard::DrawGame(int timeOfDay) {
 		// The stuff gets layered in the order it's added here so add the player last
 		CreatePlayer();
 	}
-	
+
 }
 
 void Game::GameBoard::CreatePlayer()
@@ -122,10 +122,10 @@ void Game::GameBoard::CreateNPC()
 	GameEngine::Entity* m_npc = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
-	int ranX = (int) ((3800.f / 19) * (rand() % 20 + 1));
+	int ranX = (int)((3800.f / 19) * (rand() % 20 + 1));
 
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f((float) ranX, (rand()%10 + 450.f)));
+	m_npc->SetPos(sf::Vector2f((float)ranX, (rand() % 10 + 450.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -225,21 +225,24 @@ void Game::GameBoard::NewStore(float hPos)
 
 //display a dialog box. the id corresponds to the text image to use
 void Game::GameBoard::ShowDialog(int id) {
+
+	// HideDialog();
+
 	m_dialogBox = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
 	//set the text box position and size
 	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 600));
-	m_dialogBox->SetSize(sf::Vector2f(200.f, 100.f));
+	m_dialogBox->SetSize(sf::Vector2f(250.f, 56.f));
 
 	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 	render->SetZLevel(1);
 	render->SetFillColor(sf::Color::Transparent);
 
-	 switch (id) {
-	 case 10:
+	switch (id) {
+	case 10:
 		render->SetTexture(GameEngine::eTexture::Interact_Hint);
-	 }
+	}
 }
 
 //close the current dialog box
@@ -251,14 +254,14 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 	GameEngine::Entity* bg = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bg);
 
-	bg->SetPos(sf::Vector2f(0,-42));
-	bg->SetSize(sf::Vector2f(4000,752));
+	bg->SetPos(sf::Vector2f(0, -42));
+	bg->SetSize(sf::Vector2f(4000, 752));
 
 	GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	renderBG->SetTopLeftRender(true);
 	renderBG->SetFillColor(sf::Color::Transparent);
-	
+
 
 	if (timeOfDay == 0) {
 		renderBG->SetZLevel(-3);
