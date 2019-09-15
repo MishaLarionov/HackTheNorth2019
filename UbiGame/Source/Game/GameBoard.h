@@ -39,7 +39,7 @@ namespace Game
 		void DrawGame(int time);
 		void DrawBackground(int time);
 		void CreatePlayer();
-		void CreateNPC();
+		void CreateNPC(int x);
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
 		void UpdateValues(int caseNum);

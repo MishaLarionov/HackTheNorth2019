@@ -84,9 +84,9 @@ void Game::GameBoard::DrawGame(int timeOfDay) {
 	}
 
 	// Generate 4 NPCs
-	for (int i = 0; i < 4; i++) {
-		CreateNPC();
-	}
+	//for (int i = 0; i < 4; i++) {
+		//CreateNPC();
+	//}
 
 	// The stuff gets layered in the order it's added here so add the player last
 	CreatePlayer();
@@ -116,16 +116,14 @@ void Game::GameBoard::CreatePlayer()
 
 }
 
-void Game::GameBoard::CreateNPC()
+void Game::GameBoard::CreateNPC(int x)
 {
 	// Initialize a new NPC (same as player code with different component)
 	GameEngine::Entity* m_npc = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
-	int ranX = (int) ((3800.f / 19) * (rand() % 20 + 1));
-
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f((float) ranX, (rand()%10 + 450.f)));
+	m_npc->SetPos(sf::Vector2f((float) x, (rand()%10 + 450.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -135,7 +133,7 @@ void Game::GameBoard::CreateNPC()
 	render->SetFillColor(sf::Color::Yellow);
 
 	m_npcs.push_back(m_npc);
-	m_npcsx.push_back(ranX);
+	m_npcsx.push_back(x);
 }
 
 // Make a new house. hPos is the house slot on the board
@@ -221,6 +219,11 @@ void Game::GameBoard::NewStore(float hPos)
 	render->SetTopLeftRender(true);
 	render->SetFillColor(sf::Color::Transparent);
 	render->SetTexture(GameEngine::eTexture::Store);
+
+	// 50% chance of spawning a NPC in front of the store
+	if (rand() % 2 == 0) {
+		CreateNPC((int)hPos);
+	}
 }
 
 //display a dialog box. the id corresponds to the text image to use
