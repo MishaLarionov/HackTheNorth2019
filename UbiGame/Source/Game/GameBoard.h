@@ -32,9 +32,9 @@ namespace Game
 
 		bool inDialog;
 
-		int* language;
-		int* money;
-		int* m_timeOfDay;
+		int language;
+		int money;
+		int m_timeOfDay;
 
 	private:
 		void DrawGame(int time);
