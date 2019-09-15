@@ -17,7 +17,6 @@ int t = 0;
 GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_dialogBox(nullptr)
-	//, gameTime(0)
 {
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
@@ -44,8 +43,7 @@ GameBoard::~GameBoard()
 }
 
 
-void GameBoard::Update()
-{
+void GameBoard::Update() {
 	if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
 	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
 }
@@ -111,7 +109,6 @@ void Game::GameBoard::CreatePlayer()
 	render->SetFillColor(sf::Color::Transparent);
 	render->SetTileIndex(0, 0);
 	render->SetZLevel(10);
-
 }
 
 void Game::GameBoard::CreateNPC(int x)
@@ -121,7 +118,7 @@ void Game::GameBoard::CreateNPC(int x)
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f((float) x + 50, (rand()%10 + 450.f)));
+	m_npc->SetPos(sf::Vector2f((float) x + 50, (rand()%20 + 430.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -138,7 +135,6 @@ void Game::GameBoard::CreateNPC(int x)
 // Make a new house. hPos is the house slot on the board
 void Game::GameBoard::NewHouse(float hPos)
 {
-
 	// Alright y'all, we're gonna generate a whole new house now u ready?
 	GameEngine::Entity* baseTile = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(baseTile);
@@ -266,7 +262,6 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 	renderBG->SetTopLeftRender(true);
 	renderBG->SetFillColor(sf::Color::Transparent);
 
-
 	if (timeOfDay == 0) {
 		renderBG->SetZLevel(-3);
 		renderBG->SetTexture(GameEngine::eTexture::Background_Day);
@@ -279,12 +274,6 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 		renderBG->SetZLevel(-1);
 		renderBG->SetTexture(GameEngine::eTexture::Background_Night);
 	}
-
-	/*switch (*timeOfDay) {
-	case 0: renderBG->SetTexture(GameEngine::eTexture::Background_Day);
-	case 1: renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
-	case 2: renderBG->SetTexture(GameEngine::eTexture::Background_Night);
-	}*/
 }
 
 void Game::GameBoard::UpdateValues(int caseNum)
@@ -305,3 +294,15 @@ void Game::GameBoard::UpdateValues(int caseNum)
 		break;
 	}
 }
+
+/*void Game::GameBoard::DrawTime(int currentTime) {
+	sf::Font font;
+	sf::Text text;
+	//load the font
+	if (!font.loadFromFile("arial.ttf")) {
+		std::cout << "Could not load font" << std::endl;
+	}
+	text.setString("Hello World!");
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color::Red);
+}*/

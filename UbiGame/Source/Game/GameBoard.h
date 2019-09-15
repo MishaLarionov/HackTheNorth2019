@@ -43,6 +43,7 @@ namespace Game
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
 		void UpdateValues(int caseNum);
+		//void DrawTime(int gameTime);
 
 		std::vector<int> m_npcsx;
 
