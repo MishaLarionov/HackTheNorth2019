@@ -32,9 +32,9 @@ namespace Game
 
 		bool inDialog;
 
-		int* language;
-		int* money;
-		int* m_timeOfDay;
+		int language;
+		int money;
+		int m_timeOfDay;
 
 	private:
 		void DrawGame(int time);
@@ -44,6 +44,7 @@ namespace Game
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
 		void UpdateValues(int caseNum);
+		//void DrawTime(int gameTime);
 
 		std::vector<int> m_npcsx;
 

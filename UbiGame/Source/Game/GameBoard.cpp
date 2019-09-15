@@ -247,12 +247,28 @@ void Game::GameBoard::ShowDialog(int id) {
 		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 		render->SetZLevel(1);
 		render->SetFillColor(sf::Color::Transparent);
+		render->SetZLevel(4);
 
 		switch (id) {
 		case 10:
-			render->SetTexture(GameEngine::eTexture::Interact_Hint);
-		}
+			if (language <= 9) {
+				render->SetTexture(GameEngine::eTexture::Store_1);
 
+			}
+			else if (language >= 10 && language <= 19) {
+				render->SetTexture(GameEngine::eTexture::Store_2);
+			}
+			else {
+				render->SetTexture(GameEngine::eTexture::Store_3);
+			}
+			break;
+		case 11:
+			render->SetTexture(GameEngine::eTexture::Store_1);
+			break;
+		case 12:
+			render->SetTexture(GameEngine::eTexture::Store_1);
+			break;
+		}
 	}
 }
 
@@ -306,12 +322,12 @@ void Game::GameBoard::UpdateValues(int caseNum)
 		money -= 50;
 		break;
 	case 2:
-		language = 0;
+		language += 0;
 		money += 50;
 		break;
 	case 3:
-		language += 10;
-		money -= 50;
+		language += 5;
+		money += 20;
 		break;
 	}
 }
