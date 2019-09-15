@@ -26,6 +26,7 @@ namespace Game
 		int* money;
 
 	private:
+		void DrawBackground();
 		void CreatePlayer();
 		void CreateNPC();
 		void NewHouse(float hpos);
