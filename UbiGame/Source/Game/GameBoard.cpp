@@ -71,17 +71,20 @@ void Game::GameBoard::DrawGame(int timeOfDay) {
 				m_houses[i] = "House";
 			}
 		}
-	}
+		//draw the randomly generated houses
+		for (int i = 0; i < 19; i++) {
+			if (m_houses[i] == "House" || m_houses[i] == "PlayerHouse") {
+				NewHouse(i);
+			}
+			else if (m_houses[i] == "StoreLeft") {
+				NewStore(i);
+			}
+		}
 
-	//draw the randomly generated houses
-	for (int i = 0; i < 19; i++) {
-		if (m_houses[i] == "House" || m_houses[i] == "PlayerHouse") {
-			NewHouse(i);
+		// Generate 4 NPCs
+		for (int i = 0; i < 4; i++) {
+			CreateNPC();
 		}
-		else if (m_houses[i] == "StoreLeft") {
-			NewStore(i);
-		}
-	}
 
 	// Generate 4 NPCs
 	//for (int i = 0; i < 4; i++) {
@@ -264,11 +267,20 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 
 	renderBG->SetTopLeftRender(true);
 	renderBG->SetFillColor(sf::Color::Transparent);
-	//renderEnt->SetZLevel(-1);
 
-	if (timeOfDay == 0) renderBG->SetTexture(GameEngine::eTexture::Background_Day);
-	if (timeOfDay == 1) renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
-	if (timeOfDay == 2) renderBG->SetTexture(GameEngine::eTexture::Background_Night);
+
+	if (timeOfDay == 0) {
+		renderBG->SetZLevel(-3);
+		renderBG->SetTexture(GameEngine::eTexture::Background_Day);
+	}
+	if (timeOfDay == 1) {
+		renderBG->SetZLevel(-2);
+		renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
+	}
+	if (timeOfDay == 2) {
+		renderBG->SetZLevel(-1);
+		renderBG->SetTexture(GameEngine::eTexture::Background_Night);
+	}
 
 	/*switch (*timeOfDay) {
 	case 0: renderBG->SetTexture(GameEngine::eTexture::Background_Day);
