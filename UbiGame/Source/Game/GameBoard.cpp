@@ -4,6 +4,7 @@
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
 #include <Game\Components\NPCMovementComponent.h>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <chrono>
 
@@ -215,7 +216,7 @@ void Game::GameBoard::ShowDialog(int id) {
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
 	//set the text box position and size
-	m_dialogBox->SetPos(sf::Vector2f(540.f, 580.f));
+	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 600));
 	m_dialogBox->SetSize(sf::Vector2f(200.f, 100.f));
 
 	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
@@ -224,7 +225,7 @@ void Game::GameBoard::ShowDialog(int id) {
 
 	 switch (id) {
 	 case 10:
-		render->SetTexture(GameEngine::eTexture::Store);
+		render->SetTexture(GameEngine::eTexture::Interact_Hint);
 	 }
 }
 
