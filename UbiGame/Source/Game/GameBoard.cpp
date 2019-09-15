@@ -89,7 +89,7 @@ void Game::GameBoard::CreatePlayer()
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 
 	// Set the spawn location of the npc
-	m_player->SetPos(sf::Vector2f(3800 / 2, 450.f));
+	m_player->SetPos(sf::Vector2f(3800 / 2, 435.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -108,7 +108,7 @@ void Game::GameBoard::CreateNPC()
 	GameEngine::Entity* m_npc = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
-	int ranX = (int) ((3800.f / 19) * (rand() % 200 + 1));
+	int ranX = (int) ((3800.f / 19) * (rand() % 20 + 1));
 
 	// Set the location of the npc
 	m_npc->SetPos(sf::Vector2f((float) ranX, (rand()%10 + 450.f)));
@@ -121,7 +121,6 @@ void Game::GameBoard::CreateNPC()
 	render->SetFillColor(sf::Color::Yellow);
 
 	m_npcs.push_back(m_npc);
-
 	m_npcsx.push_back(ranX);
 }
 
@@ -223,10 +222,10 @@ void Game::GameBoard::ShowDialog(int id) {
 	render->SetZLevel(1);
 	render->SetFillColor(sf::Color::Transparent);
 
-	// switch (id) {
-	// case -1:
-	//	render->SetTexture(GameEngine::eTexture::Building1);
-	// }
+	 switch (id) {
+	 case 10:
+		render->SetTexture(GameEngine::eTexture::Store);
+	 }
 }
 
 //close the current dialog box

@@ -16,12 +16,17 @@ namespace Game
 		virtual ~GameBoard();
 
 		void Update();
+		void ShowDialog(int id);
+		void HideDialog();
 		bool IsGameOver() { return false; }
 
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
+		GameEngine::Entity getPlayer () { m_player; }
+
 		std::vector<GameEngine::Entity*> m_npcs;
 		std::vector<int> GetNPCsX() { return m_npcsx; }
+
 		int* language;
 		int* money;
 
@@ -31,8 +36,6 @@ namespace Game
 		void CreateNPC();
 		void NewHouse(float hpos);
 		void NewStore(float hPos);
-		void ShowDialog(int id);
-		void HideDialog();
 		void UpdateValues(int caseNum);
 
 		std::vector<int> m_npcsx;
