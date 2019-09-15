@@ -44,6 +44,7 @@ void PlayerMovementComponent::GetDialog(int x)
 	if (min == INT_MAX) {
 		//
 		std::cout << "TOO FAR! COME CLOSER!" << std::endl;
+		GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
 	}
 	else {
 		std::cout << "NPC INTERACTED!" << std::endl;

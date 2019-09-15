@@ -225,12 +225,15 @@ void Game::GameBoard::NewStore(float hPos)
 
 //display a dialog box. the id corresponds to the text image to use
 void Game::GameBoard::ShowDialog(int id) {
+
+	// HideDialog();
+
 	m_dialogBox = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
 	//set the text box position and size
 	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 600));
-	m_dialogBox->SetSize(sf::Vector2f(200.f, 100.f));
+	m_dialogBox->SetSize(sf::Vector2f(250.f, 56.f));
 
 	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 	render->SetZLevel(1);
