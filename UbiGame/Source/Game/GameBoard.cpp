@@ -81,11 +81,7 @@ void Game::GameBoard::DrawGame(int timeOfDay) {
 			}
 		}
 
-		// Generate 4 NPCs
-		for (int i = 0; i < 4; i++) {
-			CreateNPC();
-		}
-
+	}
 	// Generate 4 NPCs
 	//for (int i = 0; i < 4; i++) {
 		//CreateNPC();
