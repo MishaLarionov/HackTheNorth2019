@@ -14,6 +14,9 @@ using namespace Game;
 
 std::string GameBoard::m_houses[19] = {};
 int t = 0;
+GameEngine::Entity* bg0;
+GameEngine::Entity* bg1;
+GameEngine::Entity* bg2;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
@@ -33,7 +36,7 @@ GameBoard::GameBoard()
 	srand(time(NULL));
 
 	//draw the game
-	DrawGame(0);
+	DrawGame(0, true);
 
 	// Todo eventually - Scenery (sidewalk, sky, streetlamps, road, etc...)
 }
@@ -46,15 +49,16 @@ GameBoard::~GameBoard()
 
 
 void GameBoard::Update() {
-	if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
-	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
+	if (GameEngine::GameEngineMain::m_gameTime >= 1.0 && t == 2) GameEngine::GameEngineMain::m_gameTime = 0.0, t = 0, NextDay();
+	else if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1, false);
+	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2, false);
 }
 
 //draw the game in this order - useful for full redraws
-void Game::GameBoard::DrawGame(int timeOfDay) {
+void Game::GameBoard::DrawGame(int timeOfDay, bool newGame) {
 	DrawBackground(timeOfDay);
 
-	if (timeOfDay == 0) {
+	if (timeOfDay == 0 && newGame) {
 		srand(time(NULL));
 		// Generate on each side of the player house
 		for (int i = 0; i < 19; i++) {
@@ -242,7 +246,7 @@ void Game::GameBoard::ShowDialog(int id) {
 		m_dialogBox->SetSize(sf::Vector2f(1000.f, 212.f));
 
 		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
-		render->SetZLevel(1);
+		render->SetZLevel(100);
 		render->SetFillColor(sf::Color::Transparent);
 
 		switch (id) {
@@ -262,7 +266,7 @@ void Game::GameBoard::HideDialog() {
 }
 
 void Game::GameBoard::DrawBackground(int timeOfDay) {
-	GameEngine::Entity* bg = new GameEngine::Entity();
+	/*bg = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bg);
 
 	bg->SetPos(sf::Vector2f(0, -42));
@@ -271,17 +275,47 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 	GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	renderBG->SetTopLeftRender(true);
-	renderBG->SetFillColor(sf::Color::Transparent);
+	renderBG->SetFillColor(sf::Color::Transparent);*/
 
 	if (timeOfDay == 0) {
+		bg0 = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(bg0);
+
+		bg0->SetPos(sf::Vector2f(0, -42));
+		bg0->SetSize(sf::Vector2f(4000, 752));
+
+		GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg0->AddComponent<GameEngine::SpriteRenderComponent>());
+
+		renderBG->SetTopLeftRender(true);
+		renderBG->SetFillColor(sf::Color::Transparent);
 		renderBG->SetZLevel(-3);
 		renderBG->SetTexture(GameEngine::eTexture::Background_Day);
 	}
 	if (timeOfDay == 1) {
+		bg1 = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(bg1);
+
+		bg1->SetPos(sf::Vector2f(0, -42));
+		bg1->SetSize(sf::Vector2f(4000, 752));
+
+		GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg1->AddComponent<GameEngine::SpriteRenderComponent>());
+
+		renderBG->SetTopLeftRender(true);
+		renderBG->SetFillColor(sf::Color::Transparent);
 		renderBG->SetZLevel(-2);
 		renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
 	}
 	if (timeOfDay == 2) {
+		bg2 = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(bg2);
+
+		bg2->SetPos(sf::Vector2f(0, -42));
+		bg2->SetSize(sf::Vector2f(4000, 752));
+
+		GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg2->AddComponent<GameEngine::SpriteRenderComponent>());
+
+		renderBG->SetTopLeftRender(true);
+		renderBG->SetFillColor(sf::Color::Transparent);
 		renderBG->SetZLevel(-1);
 		renderBG->SetTexture(GameEngine::eTexture::Background_Night);
 	}
@@ -304,6 +338,19 @@ void Game::GameBoard::UpdateValues(int caseNum)
 		money -= 50;
 		break;
 	}
+}
+
+void Game::GameBoard::NextDay() {
+	/*for (int i = 0; i < GameEngine::GameEngineMain::GetInstance()->m_entities.size(); i++) {
+		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(GameEngine::GameEngineMain::GetInstance()->m_entities[i]);
+	}*/
+	//GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_player);
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(bg0);
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(bg1);
+	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(bg2);
+	m_player->SetPos(sf::Vector2f(3800 / 2, 430.f));
+	m_player->SetSize(sf::Vector2f(50.f, 100.f));
+	DrawGame(0, false);
 }
 
 /*void Game::GameBoard::DrawTime(int currentTime) {

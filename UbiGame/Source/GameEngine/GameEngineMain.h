@@ -33,6 +33,8 @@ namespace GameEngine
 
 		static float m_gameTime;
 
+		std::vector<Entity*> m_entities;
+
 	private:
 		GameEngineMain();
 
@@ -40,6 +42,7 @@ namespace GameEngine
 		
 		void AddPendingEntities();
 		void RemovePendingEntities();
+
 		void UpdateWindowEvents();
 		void UpdateEntities();
 		void RenderEntities();		
@@ -52,7 +55,6 @@ namespace GameEngine
 		static sf::Clock	   sm_gameClock;
 
 		std::vector<Entity*> m_entitiesToAdd;
-		std::vector<Entity*> m_entities;
 		std::vector<Entity*> m_entitiesToRemove;
 
 		sf::RenderTarget*   m_renderTarget;
