@@ -122,7 +122,7 @@ void Game::GameBoard::CreateNPC(int x)
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f((float) x, (rand()%10 + 450.f)));
+	m_npc->SetPos(sf::Vector2f((float) x + 50, (rand()%10 + 450.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -232,8 +232,8 @@ void Game::GameBoard::ShowDialog(int id) {
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
 	//set the text box position and size
-	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 600));
-	m_dialogBox->SetSize(sf::Vector2f(250.f, 56.f));
+	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
+	m_dialogBox->SetSize(sf::Vector2f(1000.f, 212.f));
 
 	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 	render->SetZLevel(1);

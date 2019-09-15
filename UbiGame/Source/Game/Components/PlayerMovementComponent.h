@@ -10,6 +10,7 @@ namespace Game
 		~PlayerMovementComponent();
 
 		void GetDialog(int x);
+		bool dialogDisplay;
 
 		virtual void Update() override;
 		virtual void OnAddToWorld() override;

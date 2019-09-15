@@ -14,7 +14,7 @@ using namespace Game;
 
 PlayerMovementComponent::PlayerMovementComponent()
 {
-
+	dialogDisplay = false;
 }
 
 PlayerMovementComponent::~PlayerMovementComponent()
@@ -75,24 +75,30 @@ void PlayerMovementComponent::Update()
 
 	GameEngine::SpriteRenderComponent* playerSprite = GetEntity()->GetComponent<GameEngine::SpriteRenderComponent>() ;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		playerVelocity.x -= playerSpeed * delta;
-		GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
-		playerSprite->SetTexture(GameEngine::eTexture::Player_Left);
-	}
+	if (!dialogDisplay) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			playerVelocity.x -= playerSpeed * delta;
+			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
+			playerSprite->SetTexture(GameEngine::eTexture::Player_Left);
+		}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		playerVelocity.x += playerSpeed * delta;
-		GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
-		playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
-	}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			playerVelocity.x += playerSpeed * delta;
+			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
+			playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
+		}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-	{
-		// Player wants to interact with the nearest NPC
-		GetDialog(GetEntity()->GetPos().x);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+		{
+			dialogDisplay = true;
+			// Player wants to interact with the nearest NPC
+			GetDialog(GetEntity()->GetPos().x);
+		}
+	}
+	else {
+		
 	}
 
 	// Update entity with pos values
