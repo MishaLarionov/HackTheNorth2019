@@ -23,6 +23,7 @@ namespace GameEngine
 		sf::RenderWindow* GetRenderWindow() const { return m_renderWindow; }
 		void Update();		
 		void SetRenderTarget(sf::RenderTarget* target) { m_renderTarget = target; }
+		Game::GameBoard* m_gameBoard;
 		Game::GameBoard* GetGameBoardObject() { return m_gameBoard; }
 
 		void AddEntity(Entity* entity);
@@ -60,7 +61,6 @@ namespace GameEngine
 		sf::RenderTarget*   m_renderTarget;
 		sf::RenderWindow*   m_renderWindow; //In future they will be different						
 
-		Game::GameBoard*    m_gameBoard;
 		float				m_lastDT;
 
 		bool m_windowInitialised;

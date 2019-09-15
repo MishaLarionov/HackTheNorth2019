@@ -38,6 +38,9 @@ namespace Game
 		int money;
 		int m_timeOfDay;
 
+		void leftAni();
+		void rightAni();
+
 	private:
 		void DrawGame(int time, bool newGame);
 		void DrawBackground(int time);

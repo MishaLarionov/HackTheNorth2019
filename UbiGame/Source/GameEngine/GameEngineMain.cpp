@@ -4,10 +4,12 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics.hpp>
 #include "Util/TextureManager.h"
 #include "Util/AnimationManager.h"
 #include "Util/CameraManager.h"
+#include <GameEngine\EntitySystem\Components\AnimationComponent.h>
 
 using namespace GameEngine;
 
@@ -172,6 +174,12 @@ void GameEngineMain::UpdateWindowEvents()
 			m_renderWindow->close();
 			m_renderTarget = nullptr;		
 			break;
+		}
+
+		if (event.type == sf::Event::KeyPressed) {
+			if (event.key.code == sf::Keyboard::Left) {
+				// Left animation code
+			}
 		}
 	}
 }

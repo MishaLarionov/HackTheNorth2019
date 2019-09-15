@@ -25,7 +25,10 @@ GameBoard::GameBoard()
 {
 	inDialog = false;
 	inResp = false;
-	language = 20;
+	language = 0;
+	money = 100;
+	m_dialogBox = new GameEngine::Entity();
+	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
 	float board_length = 3800;
@@ -251,9 +254,6 @@ void Game::GameBoard::ShowDialog(int id) {
 
 	if (!inDialog) {
 
-		m_dialogBox = new GameEngine::Entity();
-		GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
-
 		//set the text box position and size
 		m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
 		m_dialogBox->SetSize(sf::Vector2f(550.f, 212.f));
@@ -401,3 +401,15 @@ void Game::GameBoard::NextDay() {
 	text.setCharacterSize(40);
 	text.setFillColor(sf::Color::Red);
 }*/
+
+void Game::GameBoard::leftAni() {
+	GameEngine::AnimationComponent* m_animComponent = m_player->GetComponent<GameEngine::AnimationComponent>();
+	m_animComponent->SetIsLooping(true);
+	m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
+}
+
+void Game::GameBoard::rightAni() {
+	GameEngine::AnimationComponent* m_animComponent = m_player->GetComponent<GameEngine::AnimationComponent>();
+	m_animComponent->SetIsLooping(true);
+	m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Right);
+}
