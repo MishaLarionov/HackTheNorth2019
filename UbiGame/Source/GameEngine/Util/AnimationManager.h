@@ -11,6 +11,8 @@ namespace GameEngine
 	{
 		enum type
 		{			
+			Player_Left,
+			Player_Right,
 			None,
 		};
 	}
