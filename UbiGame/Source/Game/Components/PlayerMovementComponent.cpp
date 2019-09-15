@@ -48,9 +48,9 @@ void PlayerMovementComponent::GetDialog(int x)
 			if (abx <= 80 && abx < min) {
 				min = nx;
 			}
-			std::cout << "PLAYER: " << x << std::endl;
-			std::cout << "POSITION: " << nx << std::endl;
-			std::cout << "DISTANCE: " << abx << std::endl;
+			//std::cout << "PLAYER: " << x << std::endl;
+			//std::cout << "POSITION: " << nx << std::endl;
+			//std::cout << "DISTANCE: " << abx << std::endl;
 		}
 
 		if (min == INT_MAX) {
@@ -90,7 +90,9 @@ void PlayerMovementComponent::Update()
 	float timeScale = 0.08f;
 
 	sf::Vector2f playerVelocity = sf::Vector2f(0.f, 0.f);
-	std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
+	//std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
+
+	//std::cout << "DISPLAY BOOLEAN:" << dialogDisplay << std::endl;
 
 	if (!dialogDisplay) {
 

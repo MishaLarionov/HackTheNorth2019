@@ -57,8 +57,8 @@ namespace GameEngine
 			case eTexture::Store_3: return "store_3.png";
 			case eTexture::Npc_Left: return "NpcLeft.png";
 			case eTexture::Npc_Right: return "NpcRight.png";
-			case eTexture::Shop_Work: return "ShopDialog.png";
-			case eTexture::Shop_Closed: return "ShopDialogClosed.png";
+			case eTexture::Shop_Work: return "StoreDialog.png";
+			case eTexture::Shop_Closed: return "StoreDialogClosed.png";
 		}
 
 		return "UnknownTexType";

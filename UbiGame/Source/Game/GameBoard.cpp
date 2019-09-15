@@ -25,6 +25,7 @@ GameBoard::GameBoard()
 {
 	inDialog = false;
 	inResp = false;
+	language = 20;
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
 	float board_length = 3800;
@@ -133,10 +134,12 @@ void Game::GameBoard::CreateNPC(int x)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_npc->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_npc->AddComponent<GameEngine::SpriteRenderComponent>());
 
-	render->SetFillColor(sf::Color::Yellow);
+	render->SetFillColor(sf::Color::Transparent);
 	render->SetZLevel(15);
+	render->SetTileIndex(0, 0);
+	render->SetTexture(GameEngine::eTexture::Npc_Right);
 
 	m_npcs.push_back(m_npc);
 	m_npcsx.push_back(x);
@@ -237,7 +240,7 @@ void Game::GameBoard::NewStore(float hPos)
 //display a dialog box. the id corresponds to the text image to use
 void Game::GameBoard::ShowDialog(int id) {
 
-	HideDialog();
+	//HideDialog();
 
 	if (!inDialog) {
 
@@ -246,31 +249,29 @@ void Game::GameBoard::ShowDialog(int id) {
 
 		//set the text box position and size
 		m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
-		m_dialogBox->SetSize(sf::Vector2f(1000.f, 212.f));
+		m_dialogBox->SetSize(sf::Vector2f(550.f, 212.f));
 
 		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
-		render->SetZLevel(100);
 		render->SetFillColor(sf::Color::Transparent);
 		render->SetZLevel(4);
 
 		switch (id) {
 		case 10:
 			if (language <= 9) {
-				render->SetTexture(GameEngine::eTexture::Store_1);
-
+				render->SetTexture(GameEngine::eTexture::Shop_Work);
 			}
 			else if (language >= 10 && language <= 19) {
-				render->SetTexture(GameEngine::eTexture::Store_2);
+				render->SetTexture(GameEngine::eTexture::Shop_Work);
 			}
 			else {
-				render->SetTexture(GameEngine::eTexture::Store_3);
+				render->SetTexture(GameEngine::eTexture::Shop_Work);
 			}
 			break;
 		case 11:
-			render->SetTexture(GameEngine::eTexture::Store_1);
+			render->SetTexture(GameEngine::eTexture::Shop_Closed);
 			break;
 		case 12:
-			render->SetTexture(GameEngine::eTexture::Store_1);
+			render->SetTexture(GameEngine::eTexture::Shop_Work);
 			break;
 		}
 	}
@@ -278,10 +279,13 @@ void Game::GameBoard::ShowDialog(int id) {
 
 //close the current dialog box
 void Game::GameBoard::HideDialog() {
-	if (inDialog) {
-		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
-		inDialog = false;
-	}
+	//if (inDialog) {
+		std::cout << "HIDDEN_________________________________" << std::endl;
+		//GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
+		//inDialog = true;
+		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
+		render->SetTexture(GameEngine::eTexture::Blank);
+	//}
 }
 
 void Game::GameBoard::DrawBackground(int timeOfDay) {
