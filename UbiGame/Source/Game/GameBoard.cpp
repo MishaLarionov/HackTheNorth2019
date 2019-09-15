@@ -219,10 +219,8 @@ void Game::GameBoard::NewStore(float hPos)
 	render->SetFillColor(sf::Color::Transparent);
 	render->SetTexture(GameEngine::eTexture::Store);
 
-	// 50% chance of spawning a NPC in front of the store
-	if (rand() % 2 == 0) {
-		CreateNPC((int)hPos);
-	}
+	// Spawn a NPC in front of the store
+	CreateNPC((int)(hPos*200));
 }
 
 //display a dialog box. the id corresponds to the text image to use
