@@ -138,6 +138,13 @@ void Game::GameBoard::CreateNPC(int x)
 	render->SetFillColor(sf::Color::Yellow);
 	render->SetZLevel(15);
 
+	/*GameEngine::SpriteRenderComponent* renderNPC = static_cast<GameEngine::SpriteRenderComponent*>(m_npc->AddComponent<GameEngine::SpriteRenderComponent>());
+	renderNPC->SetTopLeftRender(true);
+	renderNPC->SetFillColor(sf::Color::Transparent);
+	renderNPC->SetTexture(GameEngine::eTexture::NPC);
+	renderNPC->SetTileIndex(sf::Vector2i(rand() % 4, 0));
+	renderNPC->SetZLevel(15);*/
+
 	m_npcs.push_back(m_npc);
 	m_npcsx.push_back(x);
 }
