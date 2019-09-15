@@ -2,6 +2,7 @@
 
 #include "GameEngine\GameEngineMain.h"
 #include "GameEngine\EntitySystem\Components\SpriteRenderComponent.h"
+#include "GameEngine\EntitySystem\Components\AnimationComponent.h"
 #include <Game\Components\PlayerMovementComponent.h>
 #include <Game\Components\NPCMovementComponent.h>
 #include <SFML/System/Vector2.hpp>
@@ -18,6 +19,7 @@ GameBoard::GameBoard()
 	: m_player(nullptr)
 	, m_dialogBox(nullptr)
 {
+	inDialog = false;
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
 	float board_length = 3800;
@@ -101,14 +103,16 @@ void Game::GameBoard::CreatePlayer()
 	// todo sprite and animation
 	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_player->AddComponent<GameEngine::SpriteRenderComponent>());
 
-	// Add the movement component
-	m_player->AddComponent<PlayerMovementComponent>();
-
-	render->SetTopLeftRender(false);
+	//render->SetTopLeftRender(false);
 	render->SetTexture(GameEngine::eTexture::Player_Right);
 	render->SetFillColor(sf::Color::Transparent);
+	//render->SetTileIndex(0, 0);
 	render->SetTileIndex(0, 0);
 	render->SetZLevel(10);
+	// Add the movement and animation components
+	m_player->AddComponent<PlayerMovementComponent>();
+	m_player->AddComponent<GameEngine::AnimationComponent>();
+
 }
 
 void Game::GameBoard::CreateNPC(int x)
@@ -228,26 +232,33 @@ void Game::GameBoard::ShowDialog(int id) {
 
 	// HideDialog();
 
-	m_dialogBox = new GameEngine::Entity();
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
+	if (!inDialog) {
 
-	//set the text box position and size
-	m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
-	m_dialogBox->SetSize(sf::Vector2f(1000.f, 212.f));
+		m_dialogBox = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
 
-	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
-	render->SetZLevel(1);
-	render->SetFillColor(sf::Color::Transparent);
+		//set the text box position and size
+		m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
+		m_dialogBox->SetSize(sf::Vector2f(1000.f, 212.f));
 
-	switch (id) {
-	case 10:
-		render->SetTexture(GameEngine::eTexture::Interact_Hint);
+		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
+		render->SetZLevel(1);
+		render->SetFillColor(sf::Color::Transparent);
+
+		switch (id) {
+		case 10:
+			render->SetTexture(GameEngine::eTexture::Interact_Hint);
+		}
+
 	}
 }
 
 //close the current dialog box
 void Game::GameBoard::HideDialog() {
-	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
+	if (inDialog) {
+		GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
+		inDialog = false;
+	}
 }
 
 void Game::GameBoard::DrawBackground(int timeOfDay) {

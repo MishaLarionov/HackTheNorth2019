@@ -31,6 +31,24 @@ void AnimationManager::InitStaticGameAnimations()
 	3)
 	);
 	*/
+	m_animDefinitions.push_back
+	(
+		SAnimationDefinition(
+			EAnimationId::Player_Left,
+			eTexture::Player_Left,
+			sf::Vector2i(0, 0),
+			2,
+			5)
+	);
+	m_animDefinitions.push_back
+	(
+		SAnimationDefinition(
+			EAnimationId::Player_Right,
+			eTexture::Player_Right,
+			sf::Vector2i(0, 0),
+			2,
+			5)
+	);
 }
 
 

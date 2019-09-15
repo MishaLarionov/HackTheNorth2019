@@ -1,6 +1,8 @@
 #include "PlayerMovementComponent.h"
 #include "GameEngine\GameEngineMain.h"
+#include <GameEngine\Util\AnimationManager.h>
 #include <GameEngine\EntitySystem\Components\SpriteRenderComponent.h>
+#include <GameEngine\EntitySystem\Components\AnimationComponent.h>
 
 #include <Game/GameBoard.h>
 
@@ -15,6 +17,7 @@ using namespace Game;
 PlayerMovementComponent::PlayerMovementComponent()
 {
 	dialogDisplay = false;
+	dir = 0;
 }
 
 PlayerMovementComponent::~PlayerMovementComponent()
@@ -43,6 +46,7 @@ void PlayerMovementComponent::GetDialog(int x)
 
 	if (min == INT_MAX) {
 		//
+		dialogDisplay = false;
 		std::cout << "TOO FAR! COME CLOSER!" << std::endl;
 		GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
 	}
@@ -64,6 +68,12 @@ void PlayerMovementComponent::Update()
 {
 	__super::Update();
 
+	GameEngine::SpriteRenderComponent* playerSprite = GetEntity()->GetComponent<GameEngine::SpriteRenderComponent>();
+		
+	m_animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
+	m_animComponent->SetIsLooping(true);
+	m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
+
 	float delta = GameEngine::GameEngineMain::GetTimeDelta();
 
 	float playerSpeed = 200.f;
@@ -73,21 +83,24 @@ void PlayerMovementComponent::Update()
 	//float* gameT = Game::GameBoard::gameTime;
 	//std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
 
-	GameEngine::SpriteRenderComponent* playerSprite = GetEntity()->GetComponent<GameEngine::SpriteRenderComponent>() ;
-
 	if (!dialogDisplay) {
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
+			dir = -1;
 			playerVelocity.x -= playerSpeed * delta;
 			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
 			playerSprite->SetTexture(GameEngine::eTexture::Player_Left);
+			m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
+			dir = 1;
 			playerVelocity.x += playerSpeed * delta;
 			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
 			playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
+			m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Right);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
@@ -96,9 +109,13 @@ void PlayerMovementComponent::Update()
 			// Player wants to interact with the nearest NPC
 			GetDialog(GetEntity()->GetPos().x);
 		}
+
 	}
 	else {
-		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+			dialogDisplay = false;
+			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
+		}
 	}
 
 	// Update entity with pos values

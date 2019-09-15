@@ -30,9 +30,10 @@ namespace Game
 
 		static std::string m_houses[];
 
+		bool inDialog;
+
 		int* language;
 		int* money;
-
 		int* m_timeOfDay;
 
 	private:
