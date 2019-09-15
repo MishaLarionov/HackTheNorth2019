@@ -21,6 +21,9 @@ namespace GameEngine
 			Background_Eve,
 			Background_Night,
 			Interact_Hint,
+			Store_1,
+			Store_2,
+			Store_3,
 			Player_Left,
 			Player_Right,
 			Npc_Left,
@@ -45,6 +48,9 @@ namespace GameEngine
 			case eTexture::Interact_Hint: return "Interact_Hint.png";
 			case eTexture::Player_Left: return "WalkLeft.png";
 			case eTexture::Player_Right: return "WalkRight.png";
+			case eTexture::Store_1: return "store_1.png";
+			case eTexture::Store_2: return "store_2.png";
+			case eTexture::Store_3: return "store_3.png";
 			case eTexture::Npc_Left: return "NpcLeft.png";
 			case eTexture::Npc_Right: return "NpcRight.png";
 		}

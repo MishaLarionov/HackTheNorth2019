@@ -31,6 +31,7 @@ namespace Game
 		static std::string m_houses[];
 
 		bool inDialog;
+		bool inResp;
 
 		int language;
 		int money;

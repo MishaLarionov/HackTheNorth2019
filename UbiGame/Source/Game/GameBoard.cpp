@@ -21,6 +21,7 @@ GameBoard::GameBoard()
 	//, gameTime(0)
 {
 	inDialog = false;
+	inResp = false;
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
 	float board_length = 3800;
@@ -233,7 +234,7 @@ void Game::GameBoard::NewStore(float hPos)
 //display a dialog box. the id corresponds to the text image to use
 void Game::GameBoard::ShowDialog(int id) {
 
-	// HideDialog();
+	HideDialog();
 
 	if (!inDialog) {
 
