@@ -70,7 +70,7 @@ void PlayerMovementComponent::Update()
 
 	sf::Vector2f playerVelocity = sf::Vector2f(0.f, 0.f);
 	//float* gameT = Game::GameBoard::gameTime;
-	// std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
+	//std::cout << GameEngine::GameEngineMain::m_gameTime << std::endl;
 
 	GameEngine::SpriteRenderComponent* playerSprite = GetEntity()->GetComponent<GameEngine::SpriteRenderComponent>() ;
 

@@ -49,8 +49,10 @@ void GameEngineMain::OnInitialised()
 	sm_deltaTimeClock.restart();
 	sm_gameClock.restart();
 
+	sf::Vector2f playerPos = m_gameBoard->m_player->GetPos();
 
-	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos());
+	CameraManager::GetInstance()->GetCameraView().setCenter(playerPos);
+
 	CameraManager::GetInstance()->GetCameraView().setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 }
 
@@ -101,8 +103,17 @@ void GameEngineMain::Update()
 	if (m_gameBoard)
 		m_gameBoard->Update();
 
-	// Recenter the camera (Couldn't figure out the follow lol)
-	CameraManager::GetInstance()->GetCameraView().setCenter(m_gameBoard->m_player->GetPos() +  sf::Vector2f(0, -100));
+	sf::Vector2f playerPos = m_gameBoard->m_player->GetPos();
+
+	if (playerPos.x > 640 && playerPos.x < 3160) {
+		CameraManager::GetInstance()->GetCameraView().setCenter(playerPos + sf::Vector2f(0, -100));
+	}
+	else if (playerPos.x <= 640) {
+		CameraManager::GetInstance()->GetCameraView().setCenter(sf::Vector2f(640, playerPos.y - 100));
+	}
+	else if (playerPos.x >= 3160) {
+		CameraManager::GetInstance()->GetCameraView().setCenter(sf::Vector2f(3160, playerPos.y - 100));
+	}
 
 	UpdateEntities();
 	RenderEntities();
