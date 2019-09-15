@@ -247,6 +247,7 @@ void Game::GameBoard::ShowDialog(int id) {
 		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
 		render->SetZLevel(1);
 		render->SetFillColor(sf::Color::Transparent);
+		render->SetZLevel(4);
 
 		switch (id) {
 		case 10:

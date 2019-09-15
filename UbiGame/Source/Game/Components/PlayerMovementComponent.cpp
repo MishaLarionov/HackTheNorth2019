@@ -103,7 +103,12 @@ void PlayerMovementComponent::Update()
 			m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Right);
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+		// Update entity with pos values
+		if (GetEntity()->GetPos().x + playerVelocity.x < 3800 && GetEntity()->GetPos().x + playerVelocity.x > 0) {
+			GetEntity()->SetPos(GetEntity()->GetPos() + playerVelocity);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && !dialogDisplay)
 		{
 			dialogDisplay = true;
 			// Player wants to interact with the nearest NPC
@@ -112,14 +117,9 @@ void PlayerMovementComponent::Update()
 
 	}
 	else {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && dialogDisplay) {
 			dialogDisplay = false;
 			GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
 		}
-	}
-
-	// Update entity with pos values
-	if (GetEntity()->GetPos().x + playerVelocity.x < 3800 && GetEntity()->GetPos().x + playerVelocity.x > 0) {
-		GetEntity()->SetPos(GetEntity()->GetPos() + playerVelocity);
 	}
 }
