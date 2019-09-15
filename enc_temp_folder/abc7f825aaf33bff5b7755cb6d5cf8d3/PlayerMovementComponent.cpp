@@ -57,6 +57,7 @@ void PlayerMovementComponent::GetDialog(int x)
 			//
 			dialogDisplay = false;
 			std::cout << "TOO FAR! COME CLOSER!" << std::endl;
+			//GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->HideDialog();
 		}
 		else {
 			std::cout << "NPC INTERACTED!" << std::endl;
