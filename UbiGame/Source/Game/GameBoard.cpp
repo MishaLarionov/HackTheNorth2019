@@ -46,8 +46,8 @@ GameBoard::~GameBoard()
 
 void GameBoard::Update()
 {
-	//if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
-	//else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
+	if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
+	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
 }
 
 //draw the game in this order - useful for full redraws
@@ -80,15 +80,13 @@ void Game::GameBoard::DrawGame(int timeOfDay) {
 				NewStore(i);
 			}
 		}
-
+		// The stuff gets layered in the order it's added here so add the player last
+		CreatePlayer();
 	}
 	// Generate 4 NPCs
 	//for (int i = 0; i < 4; i++) {
 		//CreateNPC();
 	//}
-
-	// The stuff gets layered in the order it's added here so add the player last
-	CreatePlayer();
 }
 
 void Game::GameBoard::CreatePlayer()
@@ -112,6 +110,7 @@ void Game::GameBoard::CreatePlayer()
 	render->SetTexture(GameEngine::eTexture::Player_Right);
 	render->SetFillColor(sf::Color::Transparent);
 	render->SetTileIndex(0, 0);
+	render->SetZLevel(10);
 
 }
 
@@ -130,6 +129,7 @@ void Game::GameBoard::CreateNPC(int x)
 	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_npc->AddComponent<GameEngine::RenderComponent>());
 
 	render->SetFillColor(sf::Color::Yellow);
+	render->SetZLevel(15);
 
 	m_npcs.push_back(m_npc);
 	m_npcsx.push_back(x);
@@ -151,6 +151,7 @@ void Game::GameBoard::NewHouse(float hPos)
 	renderBase->SetFillColor(sf::Color::Transparent);
 	renderBase->SetTexture(GameEngine::eTexture::BottomTiles);
 	renderBase->SetTileIndex(sf::Vector2i(rand() % 3, 0));
+	renderBase->SetZLevel(1);
 
 	// This is to make the roof
 	GameEngine::Entity* roofTile = new GameEngine::Entity();
@@ -164,6 +165,7 @@ void Game::GameBoard::NewHouse(float hPos)
 	renderRoof->SetFillColor(sf::Color::Transparent);
 	renderRoof->SetTexture(GameEngine::eTexture::RoofTiles);
 	renderRoof->SetTileIndex(sf::Vector2i(rand() % 3, 0));
+	renderRoof->SetZLevel(2);
 
 	// This is the door
 	GameEngine::Entity* door = new GameEngine::Entity();
@@ -177,6 +179,7 @@ void Game::GameBoard::NewHouse(float hPos)
 	renderDoor->SetFillColor(sf::Color::Transparent);
 	renderDoor->SetTexture(GameEngine::eTexture::Doors);
 	renderDoor->SetTileIndex(sf::Vector2i(rand() % 2, 0));
+	renderDoor->SetZLevel(2);
 
 	// Draw the four windows
 	int windowStyle = rand() % 2;
@@ -198,6 +201,7 @@ void Game::GameBoard::NewHouse(float hPos)
 		renderWindow->SetFillColor(sf::Color::Transparent);
 		renderWindow->SetTexture(GameEngine::eTexture::Windows);
 		renderWindow->SetTileIndex(sf::Vector2i(windowStyle, 0));
+		renderWindow->SetZLevel(2);
 	}
 }
 
