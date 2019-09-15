@@ -88,18 +88,22 @@ void Game::GameBoard::CreatePlayer()
 	m_player = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_player);
 
-	// Set the spawn location of the npc
-	m_player->SetPos(sf::Vector2f(3800 / 2, 450.f));
+	// Set the spawn location of the player
+	m_player->SetPos(sf::Vector2f(3800 / 2, 430.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(m_player->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_player->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	// Add the movement component
 	m_player->AddComponent<PlayerMovementComponent>();
 
-	render->SetFillColor(sf::Color::Red);
+	render->SetTopLeftRender(false);
+	render->SetTexture(GameEngine::eTexture::Player_Right);
+	render->SetFillColor(sf::Color::Transparent);
+	render->SetTileIndex(0, 0);
+
 }
 
 void Game::GameBoard::CreateNPC()
