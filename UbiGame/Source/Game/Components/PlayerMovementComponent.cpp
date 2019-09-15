@@ -119,7 +119,7 @@ void PlayerMovementComponent::Update()
 			GetEntity()->SetPos(GetEntity()->GetPos() + playerVelocity);
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && !dialogDisplay)
+		if (!dialogDisplay && sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 		{
 			dialogDisplay = true;
 			// Player wants to interact with the nearest NPC

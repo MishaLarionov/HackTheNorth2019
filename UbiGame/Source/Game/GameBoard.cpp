@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <exception>
 
 using namespace Game;
 
@@ -27,8 +28,7 @@ GameBoard::GameBoard()
 	inResp = false;
 	language = 0;
 	money = 100;
-	m_dialogBox = new GameEngine::Entity();
-	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
+	
 	// Initialize a reasonable area for the player to explore
 	// 3 times screen width rounded to nearest 200
 	float board_length = 3800;
@@ -254,6 +254,9 @@ void Game::GameBoard::ShowDialog(int id) {
 
 	if (!inDialog) {
 
+		m_dialogBox = new GameEngine::Entity();
+		GameEngine::GameEngineMain::GetInstance()->AddEntity(m_dialogBox);
+
 		//set the text box position and size
 		m_dialogBox->SetPos(sf::Vector2f(m_player->GetPos().x, 250));
 		m_dialogBox->SetSize(sf::Vector2f(550.f, 212.f));
@@ -288,10 +291,16 @@ void Game::GameBoard::ShowDialog(int id) {
 void Game::GameBoard::HideDialog() {
 	//if (inDialog) {
 		std::cout << "HIDDEN_________________________________" << std::endl;
-		//GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
-		//inDialog = true;
-		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
-		render->SetTexture(GameEngine::eTexture::Blank);
+		try
+		{
+			GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
+			//inDialog = false;
+			GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
+			render->SetTexture(GameEngine::eTexture::Blank);
+		}
+		catch (std::exception& e) {
+			
+		}
 	//}
 }
 
