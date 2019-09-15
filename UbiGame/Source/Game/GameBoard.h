@@ -21,6 +21,7 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
 		std::vector<GameEngine::Entity*> m_npcs;
+		std::vector<int> m_npcsx;
 
 		int* language;
 		int* money;
