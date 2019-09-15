@@ -262,19 +262,21 @@ void Game::GameBoard::ShowDialog(int id) {
 		m_dialogBox->SetSize(sf::Vector2f(550.f, 212.f));
 
 		GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(m_dialogBox->AddComponent<GameEngine::SpriteRenderComponent>());
+		
 		render->SetFillColor(sf::Color::Transparent);
 		render->SetZLevel(4);
+		render->SetTexture(GameEngine::eTexture::Shop_Work);
 
 		switch (id) {
 		case 10:
 			if (language <= 9) {
-				render->SetTexture(GameEngine::eTexture::Shop_Work);
+				render->SetTileIndex(sf::Vector2i(0, 0));
 			}
 			else if (language >= 10 && language <= 19) {
-				render->SetTexture(GameEngine::eTexture::Shop_Work);
+				render->SetTileIndex(sf::Vector2i(1, 0));
 			}
 			else {
-				render->SetTexture(GameEngine::eTexture::Shop_Work);
+				render->SetTileIndex(sf::Vector2i(2, 0));
 			}
 			break;
 		case 11:
@@ -396,6 +398,7 @@ void Game::GameBoard::NextDay() {
 	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(bg2);
 	m_player->SetPos(sf::Vector2f(3800 / 2, 430.f));
 	m_player->SetSize(sf::Vector2f(50.f, 100.f));
+	language += 10;
 	DrawGame(0, false);
 }
 

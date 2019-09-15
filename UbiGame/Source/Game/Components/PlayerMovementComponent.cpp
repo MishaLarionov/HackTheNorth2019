@@ -14,10 +14,13 @@
 
 using namespace Game;
 
+int frames;
+
 PlayerMovementComponent::PlayerMovementComponent()
 {
 	dialogDisplay = false;
 	dir = 0;
+	frames = 0;
 }
 
 PlayerMovementComponent::~PlayerMovementComponent()
@@ -79,9 +82,8 @@ void PlayerMovementComponent::Update()
 
 	GameEngine::SpriteRenderComponent* playerSprite = GetEntity()->GetComponent<GameEngine::SpriteRenderComponent>();
 		
-	m_animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
-	m_animComponent->SetIsLooping(true);
-	m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
+	//m_animComponent = GetEntity()->GetComponent<GameEngine::AnimationComponent>();
+	//m_animComponent->SetIsLooping(true);
 
 	float delta = GameEngine::GameEngineMain::GetTimeDelta();
 
@@ -97,20 +99,41 @@ void PlayerMovementComponent::Update()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			dir = -1;
+			playerSprite->SetTexture(GameEngine::eTexture::Player_Left);
+			if (frames >= 0 && frames < 20) {
+				playerSprite->SetTileIndex(sf::Vector2i(0, 0));
+				frames++;
+			}
+			else if (frames >= 20 && frames < 40) {
+				playerSprite->SetTileIndex(sf::Vector2i(1, 0));
+				frames++;
+			}
+			if (frames == 40) {
+				frames = 0;
+			}
 			playerVelocity.x -= playerSpeed * delta;
 			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
-			playerSprite->SetTexture(GameEngine::eTexture::Player_Left);
-			m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
+			//m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Left);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			dir = 1;
+			playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
+			if (frames >= 0 && frames < 20) {
+				playerSprite->SetTileIndex(sf::Vector2i(0, 0));
+				frames++;
+			}
+			else if (frames >= 20 && frames < 40) {
+				playerSprite->SetTileIndex(sf::Vector2i(1, 0));
+				frames++;
+			}
+			if (frames == 40) {
+				frames = 0;
+			}
 			playerVelocity.x += playerSpeed * delta;
 			GameEngine::GameEngineMain::m_gameTime += timeScale * delta;
-			playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
-			m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Right);
+			//playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
+			//m_animComponent->PlayAnim(GameEngine::EAnimationId::Player_Right);
 		}
 
 		// Update entity with pos values
