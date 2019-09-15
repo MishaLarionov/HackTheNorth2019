@@ -17,7 +17,9 @@ namespace GameEngine
 			Windows,
 			RoofTiles,
 			Store,
-			Background,
+			Background_Day,
+			Background_Eve,
+			Background_Night,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}	
@@ -32,7 +34,9 @@ namespace GameEngine
 			case eTexture::Windows: return "Windows.png";
 			case eTexture::RoofTiles: return "RoofTiles.png";
 			case eTexture::Store: return "Store.png";
-			case eTexture::Background: return "background4000.png";
+			case eTexture::Background_Day: return "background4000.png";
+			case eTexture::Background_Eve: return "background4000-eve.png";
+			case eTexture::Background_Night: return "background4000-night.png";
 		}
 
 		return "UnknownTexType";

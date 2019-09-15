@@ -5,10 +5,13 @@
 #include <Game\Components\PlayerMovementComponent.h>
 #include <Game\Components\NPCMovementComponent.h>
 #include <iostream>
+#include <string>
 #include <chrono>
 
-
 using namespace Game;
+
+std::string GameBoard::m_houses[19] = {};
+int t = 0;
 
 GameBoard::GameBoard()
 	: m_player(nullptr)
@@ -23,50 +26,13 @@ GameBoard::GameBoard()
 	// Spawn a few places for temp labor that are randomly open or "sorry, no work today" and one school
 	// Some higher paying ones will be behind language barrier
 	// Have one sketchy visa guy selling a visa for a large sum of money - That'll be the player goal
-	std::string houses[19] = {};
 
 	// Seed the random generator
 	srand(time(NULL));
 
-	//draw the background
-	DrawBackground();
-
-	// Generate on each side of the player house
-	for (int i = 0; i < 19; i++) {
-
-		if (i == 9) {
-			houses[i] = "PlayerHouse";
-		}
-		else if (rand() % 100 < 25 && i + 1 != 9 && i + 1 < 19) {
-			// 20% chance of spawning a store (also make sure that it doesn't intersect house)
-			houses[i] = "StoreLeft";
-			houses[i + 1] = "StoreRight";
-			i++;
-		}
-		else {
-			houses[i] = "House";
-		}
-	}
-
-	// Now we loop again and draw stuff
-	srand(time(NULL));
-	for (int i = 0; i < 19; i++) {
-		if (houses[i] == "House" || houses[i] == "PlayerHouse") {
-			NewHouse(i);
-		}
-		else if (houses[i] == "StoreLeft") {
-			NewStore(i);
-		}
-	}
-
-	// The stuff gets layered in the order it's added here so add the player last
-	CreatePlayer();
-
-	// Generate 4 NPCs
-	for (int i = 0; i < 4; i++) {
-		CreateNPC();
-	}
-
+	//draw the game
+	DrawGame(0);
+	
 	// Todo eventually - Scenery (sidewalk, sky, streetlamps, road, etc...)
 }
 
@@ -79,7 +45,50 @@ GameBoard::~GameBoard()
 
 void GameBoard::Update()
 {
+	if (GameEngine::GameEngineMain::m_gameTime >= 0.5 && GameEngine::GameEngineMain::m_gameTime <= 0.8 && t < 1) t = 1, DrawGame(1);
+	else if (GameEngine::GameEngineMain::m_gameTime > 0.8 && t < 2) t = 2, DrawGame(2);
+}
 
+//draw the game in this order - useful for full redraws
+void Game::GameBoard::DrawGame(int timeOfDay) {
+	DrawBackground(timeOfDay);
+
+	if (timeOfDay == 0) {
+		srand(time(NULL));
+		// Generate on each side of the player house
+		for (int i = 0; i < 19; i++) {
+			if (i == 9) {
+				m_houses[i] = "PlayerHouse";
+			}
+			else if (rand() % 100 < 25 && i + 1 != 9 && i + 1 < 19) {
+				// 20% chance of spawning a store (also make sure that it doesn't intersect house)
+				m_houses[i] = "StoreLeft";
+				m_houses[i + 1] = "StoreRight";
+				i++;
+			}
+			else {
+				m_houses[i] = "House";
+			}
+		}
+	}
+
+	//draw the randomly generated houses
+	for (int i = 0; i < 19; i++) {
+		if (m_houses[i] == "House" || m_houses[i] == "PlayerHouse") {
+			NewHouse(i);
+		}
+		else if (m_houses[i] == "StoreLeft") {
+			NewStore(i);
+		}
+	}
+
+	// Generate 4 NPCs
+	for (int i = 0; i < 4; i++) {
+		CreateNPC();
+	}
+
+	// The stuff gets layered in the order it's added here so add the player last
+	CreatePlayer();
 }
 
 void Game::GameBoard::CreatePlayer()
@@ -232,7 +241,7 @@ void Game::GameBoard::HideDialog() {
 	GameEngine::GameEngineMain::GetInstance()->RemoveEntity(m_dialogBox);
 }
 
-void Game::GameBoard::DrawBackground() {
+void Game::GameBoard::DrawBackground(int timeOfDay) {
 	GameEngine::Entity* bg = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bg);
 
@@ -244,7 +253,16 @@ void Game::GameBoard::DrawBackground() {
 	renderBG->SetTopLeftRender(true);
 	renderBG->SetFillColor(sf::Color::Transparent);
 	//renderEnt->SetZLevel(-1);
-	renderBG->SetTexture(GameEngine::eTexture::Background);
+	
+	if (timeOfDay == 0) renderBG->SetTexture(GameEngine::eTexture::Background_Day);
+	if (timeOfDay == 1) renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
+	if (timeOfDay == 2) renderBG->SetTexture(GameEngine::eTexture::Background_Night);
+
+	/*switch (*timeOfDay) {
+	case 0: renderBG->SetTexture(GameEngine::eTexture::Background_Day);
+	case 1: renderBG->SetTexture(GameEngine::eTexture::Background_Eve);
+	case 2: renderBG->SetTexture(GameEngine::eTexture::Background_Night);
+	}*/
 }
 
 void Game::GameBoard::UpdateValues(int caseNum)

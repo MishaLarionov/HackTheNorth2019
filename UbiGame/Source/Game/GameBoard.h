@@ -3,6 +3,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <vector>
+#include <string>
 
 namespace Game
 {
@@ -23,11 +24,16 @@ namespace Game
 		std::vector<GameEngine::Entity*> m_npcs;
 		std::vector<int> m_npcsx;
 
+		static std::string m_houses[];
+
 		int* language;
 		int* money;
 
+		int* m_timeOfDay;
+
 	private:
-		void DrawBackground();
+		void DrawGame(int time);
+		void DrawBackground(int time);
 		void CreatePlayer();
 		void CreateNPC();
 		void NewHouse(float hpos);
