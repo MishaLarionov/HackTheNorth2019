@@ -100,6 +100,7 @@ void SpriteRenderComponent::Update()
 void SpriteRenderComponent::SetTexture(eTexture::type texture)
 {
 	m_texture = texture;
+	UpdateSpriteParams();
 }
 
 
