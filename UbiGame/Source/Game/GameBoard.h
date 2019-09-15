@@ -26,7 +26,6 @@ namespace Game
 		GameEngine::Entity getPlayer () { m_player; }
 
 		std::vector<GameEngine::Entity*> m_npcs;
-		std::vector<int> m_npcsx;
 		std::vector<int> GetNPCsX() { return m_npcsx; }
 
 		static std::string m_houses[];
