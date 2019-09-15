@@ -241,10 +241,10 @@ void Game::GameBoard::ShowDialog(int id) {
 	render->SetZLevel(1);
 	render->SetFillColor(sf::Color::Transparent);
 
-	 switch (id) {
-	 case 10:
+	switch (id) {
+	case 10:
 		render->SetTexture(GameEngine::eTexture::Interact_Hint);
-	 }
+	}
 }
 
 //close the current dialog box
@@ -256,8 +256,8 @@ void Game::GameBoard::DrawBackground(int timeOfDay) {
 	GameEngine::Entity* bg = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(bg);
 
-	bg->SetPos(sf::Vector2f(0,-42));
-	bg->SetSize(sf::Vector2f(4000,752));
+	bg->SetPos(sf::Vector2f(0, -42));
+	bg->SetSize(sf::Vector2f(4000, 752));
 
 	GameEngine::SpriteRenderComponent* renderBG = static_cast<GameEngine::SpriteRenderComponent*>(bg->AddComponent<GameEngine::SpriteRenderComponent>());
 
