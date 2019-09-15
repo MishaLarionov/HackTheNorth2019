@@ -1,12 +1,14 @@
 #include "PlayerMovementComponent.h"
 #include "GameEngine\GameEngineMain.h"
+#include <GameEngine\EntitySystem\Components\SpriteRenderComponent.h>
 
 #include <Game/GameBoard.h>
 
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <vector>
-#include <GameEngine\EntitySystem\Components\SpriteRenderComponent.h>
+#include <cmath>
 
 using namespace Game;
 
@@ -23,7 +25,31 @@ PlayerMovementComponent::~PlayerMovementComponent()
 void PlayerMovementComponent::GetDialog(int x)
 {
 
+	std::cout << "SHOW DIALOG FUNCTION CALLED" << std::endl;
+	// This function is used to keep track/select which npc to interact with
 	std::vector<int> npcsx = GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->GetNPCsX();
+
+	int min = INT_MAX;
+
+	for (auto nx : npcsx) {
+		int abx = std::abs(x-nx);
+		if (abx <= 80 && abx < min) {
+			min = nx;
+		}
+		std::cout << "PLAYER: " << x << std::endl;
+		std::cout << "POSITION: " << nx << std::endl;
+		std::cout << "DISTANCE: " << abx << std::endl;
+	}
+
+	if (min == INT_MAX) {
+		//
+		std::cout << "TOO FAR! COME CLOSER!" << std::endl;
+	}
+	else {
+		std::cout << "NPC INTERACTED!" << std::endl;
+		// NPC Found
+		GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->ShowDialog(10);
+	}
 
 }
 
@@ -62,10 +88,10 @@ void PlayerMovementComponent::Update()
 		playerSprite->SetTexture(GameEngine::eTexture::Player_Right);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 	{
 		// Player wants to interact with the nearest NPC
-		GetDialog(playerVelocity.x);
+		GetDialog(GetEntity()->GetPos().x);
 	}
 
 	// Update entity with pos values

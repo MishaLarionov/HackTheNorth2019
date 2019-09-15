@@ -17,7 +17,9 @@ namespace GameEngine
 			Windows,
 			RoofTiles,
 			Store,
-			Background,
+			Background_Day,
+			Background_Eve,
+			Background_Night,
 			Interact_Hint,
 			Player_Left,
 			Player_Right,
@@ -35,7 +37,9 @@ namespace GameEngine
 			case eTexture::Windows: return "Windows.png";
 			case eTexture::RoofTiles: return "RoofTiles.png";
 			case eTexture::Store: return "Store.png";
-			case eTexture::Background: return "background4000.png";
+			case eTexture::Background_Day: return "background4000.png";
+			case eTexture::Background_Eve: return "background4000-eve.png";
+			case eTexture::Background_Night: return "background4000-night.png";
 			case eTexture::Interact_Hint: return "Interact_Hint.png";
 			case eTexture::Player_Left: return "WalkLeft.png";
 			case eTexture::Player_Right: return "WalkRight.png";
