@@ -1,8 +1,11 @@
 #include "PlayerMovementComponent.h"
 #include "GameEngine\GameEngineMain.h"
 
+#include <Game/GameBoard.h>
+
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include <vector>
 
 using namespace Game;
 
@@ -16,9 +19,11 @@ PlayerMovementComponent::~PlayerMovementComponent()
 
 }
 
-void PlayerMovementComponent::GetDialog(int index)
+void PlayerMovementComponent::GetDialog(int x)
 {
-	
+
+	std::vector<int> npcsx = GameEngine::GameEngineMain::GetInstance()->GetGameBoardObject()->GetNPCsX();
+
 }
 
 void PlayerMovementComponent::OnAddToWorld()

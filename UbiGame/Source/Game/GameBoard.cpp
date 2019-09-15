@@ -105,10 +105,10 @@ void Game::GameBoard::CreateNPC()
 	GameEngine::Entity* m_npc = new GameEngine::Entity();
 	GameEngine::GameEngineMain::GetInstance()->AddEntity(m_npc);
 
-	float ranX = (3800.f / 19) * (rand() % 200);
+	int ranX = (int) ((3800.f / 19) * (rand() % 200 + 1));
 
 	// Set the location of the npc
-	m_npc->SetPos(sf::Vector2f(ranX, (rand()%10 + 450.f)));
+	m_npc->SetPos(sf::Vector2f((float) ranX, (rand()%10 + 450.f)));
 	m_npc->SetSize(sf::Vector2f(50.f, 100.f));
 
 	// Add the render component
@@ -118,6 +118,7 @@ void Game::GameBoard::CreateNPC()
 	render->SetFillColor(sf::Color::Yellow);
 
 	m_npcs.push_back(m_npc);
+
 	m_npcsx.push_back(ranX);
 }
 
@@ -199,10 +200,11 @@ void Game::GameBoard::NewStore(float hPos)
 
 	// Add the render component
 	// todo sprite and animation
-	GameEngine::RenderComponent* render = static_cast<GameEngine::RenderComponent*>(redBox->AddComponent<GameEngine::RenderComponent>());
+	GameEngine::SpriteRenderComponent* render = static_cast<GameEngine::SpriteRenderComponent*>(redBox->AddComponent<GameEngine::SpriteRenderComponent>());
 
 	render->SetTopLeftRender(true);
-	render->SetFillColor(sf::Color::Green);
+	render->SetFillColor(sf::Color::Transparent);
+	render->SetTexture(GameEngine::eTexture::Store);
 }
 
 //display a dialog box. the id corresponds to the text image to use

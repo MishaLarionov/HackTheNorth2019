@@ -21,8 +21,7 @@ namespace Game
 		GameEngine::Entity* m_player;
 		GameEngine::Entity* m_dialogBox;
 		std::vector<GameEngine::Entity*> m_npcs;
-		std::vector<int> m_npcsx;
-
+		std::vector<int> GetNPCsX() { return m_npcsx; }
 		int* language;
 		int* money;
 
@@ -34,5 +33,8 @@ namespace Game
 		void ShowDialog(int id);
 		void HideDialog();
 		void UpdateValues(int caseNum);
+
+		std::vector<int> m_npcsx;
+
 	};
 }

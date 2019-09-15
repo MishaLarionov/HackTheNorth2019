@@ -17,6 +17,7 @@ namespace GameEngine
 			Windows,
 			RoofTiles,
 			Store,
+			Interact_Hint,
 			Count, // THIS ONE HAS TO BE LAST
 		};
 	}	
@@ -31,6 +32,7 @@ namespace GameEngine
 			case eTexture::Windows: return "Windows.png";
 			case eTexture::RoofTiles: return "RoofTiles.png";
 			case eTexture::Store: return "Store.png";
+			case eTexture::Interact_Hint: return "Interact_Hint.png";
 		}
 
 		return "UnknownTexType";
